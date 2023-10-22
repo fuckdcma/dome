@@ -120,7 +120,7 @@ namespace SimpleFFmpegGUI.WPF.Model
         {
             if (VideoCodec.VideoCodecs.Length != CodecsCount)
             {
-                throw new Exception("编码数量不对应");
+                throw new Exception("Số lượng mã không tương ứng");
             }
         }
         public string Header { get; set; }
