@@ -20,27 +20,27 @@
         }
 
         /// <summary>
-        /// 参数的名称，即“-”后面的内容
+        /// Tên đối số，Tức là nội dung sau dấu "-"
         /// </summary>
         public string Key { get; set; }
 
         /// <summary>
-        /// 参数的值
+        /// Giá trị tham số
         /// </summary>
         public string Value { get; set; }
 
         /// <summary>
-        /// 如果该参数为某一参数的子参数，则该属性为父参数的Key
+        /// Nếu tham số đó là tham số con của một tham số khác, thì thuộc tính đó là khóa của tham số cha
         /// </summary>
         public string Parent { get; set; }
 
         /// <summary>
-        /// 如果该参数为某一参数的子参数，则该属性为划分该父参数下子参数的分隔符
+        /// Nếu tham số đó là tham số con của một tham số khác, thì thuộc tính đó là bộ phân tách để phân chia các tham số con của tham số cha
         /// </summary>
         public char Seprator { get; }
 
         /// <summary>
-        /// 用于串联多个参数
+        /// Dùng để nối nhiều tham số
         /// </summary>
         public FFmpegArgumentItem Other { get; set; }
     }
