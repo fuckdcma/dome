@@ -36,37 +36,37 @@ namespace SimpleFFmpegGUI.FFmpegLib
 
 
         /// <summary>
-        /// 默认CRF
+        /// CRF mặc định
         /// </summary>
         public abstract int DefaultCRF { get; }
 
         /// <summary>
-        /// 默认速度预设等级
+        /// Mức độ tốc độ chuẩn mặc định
         /// </summary>
         public abstract int DefaultSpeedLevel { get; }
 
         /// <summary>
-        /// 最大CRF
+        /// CRF tối đa
         /// </summary>
         public abstract int MaxCRF { get; }
 
         /// <summary>
-        /// 最大速度预设等级
+        /// Mức độ tốc độ tối đa
         /// </summary>
         public abstract int MaxSpeedLevel { get; }
 
         /// <summary>
-        /// 速度预设与编码速度的关系
+        /// Mối quan hệ giữa tốc độ chuẩn và tốc độ mã hóa
         /// </summary>
         /// <remarks>
-        /// 提供一个数组，其长度=<see cref="MaxSpeedLevel"/>+1，即速度预设的数量。下标值与速度预设值对应。
-        /// SpeedFPSRelationship[i]代表速度预设为i时，实际编码速度的一个相对值（帧/秒）。
-        /// 其绝对值不具有意义，但一组值之间的相对值代表其相对编码速度的快慢
+        /// Gửi một mảng，Độ dài của nó =<see cref="MaxSpeedLevel"/>+1，số lượng tốc độ chuẩn. Chỉ số tương ứng với giá trị tốc độ chuẩn.
+        /// SpeedFPSRelationship[i]Đại diện cho tốc độ chuẩn là i，Giá trị tương đối của tốc độ mã hóa thực tế (khung mỗi giây).
+        /// Giá trị tuyệt đối của nó không có ý nghĩa，Nhưng giá trị tương đối giữa các giá trị trong một tập hợp biểu thị sự nhanh chậm tương đối của tốc độ mã hóa của chúng
         /// </remarks>
         public abstract double[] SpeedFPSRelationship { get; }
 
         /// <summary>
-        /// 额外参数
+        /// Tham số bổ sung
         /// </summary>
         /// <returns></returns>
         public virtual IEnumerable<FFmpegArgumentItem> ExtraArguments()
@@ -78,7 +78,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (mb < 0)
             {
-                throw new FFmpegArgumentException("平均码率超出范围");
+                throw new FFmpegArgumentException("Bitrate trung bình vượt giới hạn");
             }
             return new FFmpegArgumentItem("b:v", $"{mb}M");
         }
@@ -87,7 +87,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (mb < 0)
             {
-                throw new FFmpegArgumentException("缓冲大小超出范围");
+                throw new FFmpegArgumentException("Kích thước bộ đệm vượt giới hạn");
             }
             return new FFmpegArgumentItem("bufsize", $"{mb}M");
         }
@@ -96,7 +96,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (level < 0 || level > MaxCRF)
             {
-                throw new FFmpegArgumentException("CRF的值超出范围");
+                throw new FFmpegArgumentException("Giá trị CRF vượt giới hạn");
             }
             return new FFmpegArgumentItem("crf", level.ToString());
         }
@@ -105,7 +105,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (fps < 0)
             {
-                throw new FFmpegArgumentException("帧速率大小超出范围");
+                throw new FFmpegArgumentException("Tốc độ khung hình vượt giới hạn");
             }
             return new FFmpegArgumentItem("r", fps.ToString());
         }
@@ -114,7 +114,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (mb < 0)
             {
-                throw new FFmpegArgumentException("最大码率超出范围");
+                throw new FFmpegArgumentException("Bitrate tối đa vượt giới hạn");
             }
             return new FFmpegArgumentItem("maxrate", $"{mb}M");
         }
@@ -123,7 +123,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (string.IsNullOrWhiteSpace(format))
             {
-                throw new FFmpegArgumentException("提供的像素格式为空");
+                throw new FFmpegArgumentException("Không tìm thấy định dạng pixal");
             }
             return new FFmpegArgumentItem("pix_fmt", format);
         }
@@ -132,7 +132,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (pass is not (1 or 2 or 3))
             {
-                throw new FFmpegArgumentException("参数pass超出范围");
+                throw new FFmpegArgumentException("Tham số Pass vượt giới hạn");
             }
             return new FFmpegArgumentItem("pass", pass.ToString());
         }
@@ -141,7 +141,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (speed > MaxSpeedLevel)
             {
-                throw new FFmpegArgumentException("速度值超出范围");
+                throw new FFmpegArgumentException("Giá trị tốc độ vượt giới hạn");
             }
             return null;
         }
