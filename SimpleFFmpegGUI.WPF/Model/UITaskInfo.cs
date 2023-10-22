@@ -35,7 +35,7 @@ namespace SimpleFFmpegGUI.WPF.Model
 
 
         /// <summary>
-        /// 上一个缩略图的时间
+        /// Thời gian của hình thu nhỏ cuối cùng
         /// </summary>
         private TimeSpan lastTime = TimeSpan.MaxValue;
 
@@ -59,7 +59,7 @@ namespace SimpleFFmpegGUI.WPF.Model
         private TaskStatus status;
 
         /// <summary>
-        /// 更新缩略图计时器
+        /// Cập nhật bộ hẹn giờ hình thu nhỏ
         /// </summary>
         private PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
 
@@ -126,9 +126,9 @@ namespace SimpleFFmpegGUI.WPF.Model
                 }
                 string name = Path.GetFileName(inputs[0].FilePath);
                 return name
-                    + (inputs[0].From.HasValue ? $" 开始：{inputs[0].From.Value:hh\\:mm\\:ss\\.fff}" : "")
-                    + (inputs[0].To.HasValue ? $" 结束：{inputs[0].To.Value:hh\\:mm\\:ss\\.fff}" : "")
-                    + (inputs[0].Duration.HasValue ? $" 经过：{inputs[0].Duration.Value:hh\\:mm\\:ss\\.fff}" : "");
+                    + (inputs[0].From.HasValue ? $" Bắt đầu：{inputs[0].From.Value:hh\\:mm\\:ss\\.fff}" : "")
+                    + (inputs[0].To.HasValue ? $" Hoàn thành：{inputs[0].To.Value:hh\\:mm\\:ss\\.fff}" : "")
+                    + (inputs[0].Duration.HasValue ? $"Đã qua：{inputs[0].Duration.Value:hh\\:mm\\:ss\\.fff}" : "");
             }
         }
 
@@ -156,7 +156,7 @@ namespace SimpleFFmpegGUI.WPF.Model
             {
                 if (inputs.Count == 0)
                 {
-                    return "未指定输入";
+                    return "Không có đầu vào được chỉ định";
                 }
                 return string.Join("\r\n", inputs.Select(p => Path.GetFileName(p.FilePath)));
             }
@@ -168,10 +168,10 @@ namespace SimpleFFmpegGUI.WPF.Model
             {
                 if (inputs.Count == 0)
                 {
-                    return "未指定输入";
+                    return "Không có đầu vào được chỉ định";
                 }
                 string path = Path.GetFileName(inputs[0].FilePath);
-                return inputs.Count == 1 ? path : path + "等";
+                return inputs.Count == 1 ? path : path + "Chờ";
             }
         }
 
@@ -202,7 +202,7 @@ namespace SimpleFFmpegGUI.WPF.Model
                 }
                 else if (output == null)
                 {
-                    output = "未指定输出";
+                    output = "Không có đầu ra được chỉ định";
                 }
                 else
                 {
@@ -301,7 +301,7 @@ namespace SimpleFFmpegGUI.WPF.Model
 
         public string StatusText => Status switch
         {
-            TaskStatus.Processing => IsIndeterminate ? "进行中" : Percent.ToString("0.00%"),
+            TaskStatus.Processing => IsIndeterminate ? "Trong tiến trình" : Percent.ToString("0.00%"),
             _ => DescriptionConverter.GetDescription(Status)
         };
 
@@ -337,7 +337,7 @@ namespace SimpleFFmpegGUI.WPF.Model
 
         private void Manager_ProcessChanged(object sender, ProcessChangedEventArgs e)
         {
-            //进程改变后（比如二压），重新应用
+            //Sau khi quy trình được thay đổi (ví dụ: áp suất thứ hai), hãy áp dụng lại
             if (e.NewProcess != null)
             {
                 ProcessPriority = processPriority;
@@ -356,13 +356,13 @@ namespace SimpleFFmpegGUI.WPF.Model
 
         private async Task UpdateSnapshotAsync()
         {
-            if (App.ServiceProvider.GetService<MainWindow>().IsUiCompressMode //视图在压缩模式
-                || Type != TaskType.Code //不是编码类型的任务
-                || ProcessStatus == null //没有状态
-                || !ProcessStatus.HasDetail) //状态无详情)
+            if (App.ServiceProvider.GetService<MainWindow>().IsUiCompressMode //Xem ở chế độ nén
+                || Type != TaskType.Code //Tác vụ không phải là loại mã hóa
+                || ProcessStatus == null //Không có trạng thái
+                || !ProcessStatus.HasDetail) //Tình trạng không có thông tin chi tiết)
             {
                 ShowSnapshot = false;
-                //取消执行并不显示缩略图
+                //Hủy thực thi không hiển thị hình thu nhỏ
                 return;
             }
             else
@@ -370,12 +370,12 @@ namespace SimpleFFmpegGUI.WPF.Model
                 ShowSnapshot = true;
             }
             var time = processStatus.Time + (Inputs[0].From ?? TimeSpan.Zero);
-            if (processStatus.IsPaused //任务暂停中
-                || App.ServiceProvider.GetService<MainWindow>().WindowState == System.Windows.WindowState.Minimized //窗口被最小化
-                || App.ServiceProvider.GetService<MainWindow>().Visibility != System.Windows.Visibility.Visible //窗口不可见
-                || (lastTime - time).Duration().TotalSeconds < 1) //上一张缩略图和现在的时间差不到1s
+            if (processStatus.IsPaused //Tác vụ bị tạm dừng
+                || App.ServiceProvider.GetService<MainWindow>().WindowState == System.Windows.WindowState.Minimized //Cửa sổ được thu nhỏ
+                || App.ServiceProvider.GetService<MainWindow>().Visibility != System.Windows.Visibility.Visible //Cửa sổ không hiển thị
+                || (lastTime - time).Duration().TotalSeconds < 1) //Chênh lệch thời gian giữa hình thu nhỏ cuối cùng và hình thu nhỏ hiện tại nhỏ hơn 1 giây
             {
-                //仅取消执行
+                //Chỉ hủy thực hiện
                 return;
             }
             lastTime = time;
@@ -386,7 +386,7 @@ namespace SimpleFFmpegGUI.WPF.Model
             }
             catch (Exception ex)
             {
-                App.AppLog.Error($"获取视频{Inputs[0].FilePath}在{time}的快照失败", ex);
+                App.AppLog.Error($"Tải video {Inputs[0].FilePath} tại {time} không thành công", ex);
             }
             SnapshotSource = path == null ? null : new Uri(path);
         }
