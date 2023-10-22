@@ -17,7 +17,7 @@ namespace SimpleFFmpegGUI.Model
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// 音频参数
+        /// Thông số âm thanh
         /// </summary>
         public AudioCodeArguments Audio
         {
@@ -26,7 +26,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 音视频合并参数
+        /// Thông số hợp nhất âm thanh và video
         /// </summary>
         public CombineArguments Combine
         {
@@ -35,7 +35,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 是否禁用音频
+        /// Âm thanh có bị tắt hay không
         /// </summary>
         public bool DisableAudio
         {
@@ -44,7 +44,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 是否禁用视频（画面）
+        /// Có nên tắt video không (hình ảnh)
         /// </summary>
         public bool DisableVideo
         {
@@ -53,7 +53,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 额外参数
+        /// Thông số bổ sung
         /// </summary>
         public string Extra
         {
@@ -62,7 +62,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 容器格式（后缀名）
+        /// Định dạng vùng chứa (hậu tố)
         /// </summary>
         public string Format
         {
@@ -71,7 +71,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 流参数
+        /// Thông số stream
         /// </summary>
         public StreamArguments Stream
         {
@@ -80,7 +80,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 视频参数
+        /// Thông số video
         /// </summary>
         public VideoCodeArguments Video
         {
@@ -89,7 +89,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 将输出文件的修改时间设置为最后一个输入文件的修改时间
+        /// Đặt thời gian sửa đổi của tệp đầu ra thành thời gian sửa đổi của tệp đầu vào cuối cùng
         /// </summary>
         public bool SyncModifiedTime { get; set; }
     }
