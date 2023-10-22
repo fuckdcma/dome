@@ -10,7 +10,7 @@ namespace SimpleFFmpegGUI.WPF.Model
         {
             Bitrate = 128;
             SamplingRate = 48000;
-            Code = "自动";
+            Code = "Tự động";
         }
 
         private bool enableBitrate;
