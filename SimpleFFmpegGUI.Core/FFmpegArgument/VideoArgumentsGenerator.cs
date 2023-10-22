@@ -8,17 +8,17 @@ namespace SimpleFFmpegGUI.FFmpegArgument
     public class VideoArgumentsGenerator : ArgumentsGeneratorBase
     {
         /// <summary>
-        /// 最大码率
+        /// Bitrate tối đa
         /// </summary>
         private double? maxBitrate;
         
         /// <summary>
-        /// 视频编码
+        /// Video encoding
         /// </summary>
         public VideoCodec VideoCodec { get; private set; }
 
         /// <summary>
-        /// 画面比例
+        /// Tỷ lệ khung hình
         /// </summary>
         /// <param name="aspect"></param>
         /// <returns></returns>
@@ -40,11 +40,11 @@ namespace SimpleFFmpegGUI.FFmpegArgument
                 arguments.Add(new FFmpegArgumentItem("aspect", aspect));
                 return this;
             }
-            throw new FFmpegArgumentException("无法解析的画面比例格式");
+            throw new FFmpegArgumentException("Định dạng tỷ lệ khung hình không thể giải mã");
         }
 
         /// <summary>
-        /// 平均码率
+        /// Bitrate trung bình
         /// </summary>
         /// <param name="mb"></param>
         /// <returns></returns>
@@ -58,7 +58,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 设置最大码率时，缓冲区与最大码率的比值
+        /// Tỷ lệ giữa bộ đệm và tốc độ bit tối đa khi đặt tốc độ bit tối đa
         /// </summary>
         /// <param name="ratio"></param>
         /// <returns></returns>
@@ -69,7 +69,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
             {
                 if (maxBitrate == null)
                 {
-                    throw new FFmpegArgumentException("应先设置最大码率，然后设置缓冲比例");
+                    throw new FFmpegArgumentException("Nên đặt tốc độ bit tối đa trước, sau đó đặt tỷ lệ bộ đệm");
                 }
                 arguments.Add(VideoCodec.BufferSize(ratio.Value * maxBitrate.Value));
             }
@@ -77,7 +77,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 视频编码
+        /// Video encoding
         /// </summary>
         /// <param name="codec"></param>
         /// <returns></returns>
@@ -94,7 +94,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
                 }
             }
             VideoCodec = new GeneralVideoCodec();
-            if (codec is not ("自动" or "auto") && !string.IsNullOrEmpty(codec))
+            if (codec is not ("Tự động" or "auto") && !string.IsNullOrEmpty(codec))
             {
                 arguments.Add(new FFmpegArgumentItem("c:v", codec));
             }
@@ -102,7 +102,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 复制视频流
+        /// Sao chép video codec
         /// </summary>
         /// <returns></returns>
         public VideoArgumentsGenerator Copy()
@@ -112,7 +112,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// CRF（恒定画面质量）系数
+        /// Hệ số CRF (chất lượng hình ảnh không đổi)
         /// </summary>
         /// <param name="crf"></param>
         /// <returns></returns>
@@ -126,7 +126,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 禁用视频流
+        /// Tắt luồng video
         /// </summary>
         /// <returns></returns>
         public VideoArgumentsGenerator Disable()
@@ -136,7 +136,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 最大码率
+        /// Bitrate tối đa
         /// </summary>
         /// <param name="mb"></param>
         /// <returns></returns>
@@ -151,7 +151,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 编码次数（二次编码）
+        /// Số lần mã hóa (mã hóa hai lần)
         /// </summary>
         /// <param name="pass"></param>
         /// <returns></returns>
@@ -166,7 +166,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 像素格式
+        /// Định dạng màu (RGB,CMYK,...)
         /// </summary>
         /// <param name="format"></param>
         /// <returns></returns>
@@ -181,7 +181,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 画面尺寸，分辨率
+        /// Kích thước màn hình
         /// </summary>
         /// <param name="scale"></param>
         /// <returns></returns>
@@ -195,7 +195,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 编码速度/质量比参数
+        /// Các thông số tốc độ mã hóa/chất lượng
         /// </summary>
         /// <param name="speed"></param>
         /// <returns></returns>
@@ -209,7 +209,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 帧率
+        /// Khung hình
         /// </summary>
         /// <param name="fps"></param>
         /// <returns></returns>
@@ -223,7 +223,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 针对部分视频编码格式的额外参数
+        /// Các thông số bổ sung dành cho một số định dạng mã hóa video
         /// </summary>
         /// <returns></returns>
         public override IEnumerable<FFmpegArgumentItem> ExtraArguments()
