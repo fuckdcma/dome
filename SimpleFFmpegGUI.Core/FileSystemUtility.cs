@@ -14,7 +14,7 @@ namespace SimpleFFmpegGUI
         private const string TempDirKey = "TempDir";
 
         /// <summary>
-        /// 不合法的文件名字符集合
+        /// Ký tự không hợp lệ trong tên tập tin.
         /// </summary>
         private static HashSet<char> invalidFileNameChars = Path.GetInvalidFileNameChars().ToHashSet();
 
@@ -28,7 +28,7 @@ namespace SimpleFFmpegGUI
             {
                 var thisChar = filename[i];
                 var rightChar = i == filename.Length - 1 ? '\0' : filename[i + 1];
-                if (thisChar is '0' or '1' && rightChar is < '0' or > '9') //当前字符是0或1，右侧是非数字
+                if (thisChar is '0' or '1' && rightChar is < '0' or > '9') //Các ký tự hiện tại là 0 hoặc 1, bên phải không phải là số.
                 {
                     int indexLength = 1;
                     for (int j = i - 1; j >= 0; j--)
@@ -57,7 +57,7 @@ namespace SimpleFFmpegGUI
         }
 
         /// <summary>
-        /// 获取名称随机的临时文件。得到的文件为：%TEMP%/<see cref="SimpleFFmpegGUI"/>/{type}/{随机名称}
+        /// Nhận một tệp tạm thời có tên ngẫu nhiên. Tệp nhận được sẽ có đường dẫn: %TEMP%/<see cref="SimpleFFmpegGUI"/>/{type}/{tên ngẫu nhiên}
         /// </summary>
         /// <returns></returns>
         public static string GetTempFileName(string type)
@@ -66,7 +66,7 @@ namespace SimpleFFmpegGUI
         }
 
         /// <summary>
-        /// 获取临时目录。得到的目录为：%TEMP%/<see cref="SimpleFFmpegGUI"/>/{type}/{随机名称}
+        /// Nhận thư mục tạm thời. Thư mục nhận được sẽ có đường dẫn: %TEMP%/<see cref="SimpleFFmpegGUI"/>/{type}/{tên ngẫu nhiên}
         /// </summary>
         /// <returns></returns>
         public static string GetTempDir(string type)
@@ -83,7 +83,7 @@ namespace SimpleFFmpegGUI
         }
 
         /// <summary>
-        /// 生成输出路径
+        /// Tạo đường dẫn đầu ra.
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
@@ -96,12 +96,12 @@ namespace SimpleFFmpegGUI
             {
                 if (task.Inputs.Count == 0)
                 {
-                    throw new Exception("没有指定输出路径，且输入文件为空");
+                    throw new Exception("Chưa chỉ định đường dẫn đầu ra，Và tệp đầu vào trống");
                 }
                 output = task.Inputs[0].FilePath;
             }
 
-            //删除非法字符
+            //Xóa các ký tự không hợp lệ
             string dir = Path.GetDirectoryName(output);
             string filename = Path.GetFileName(output);
             if (filename.Any(p => invalidFileNameChars.Contains(p)))
@@ -114,7 +114,7 @@ namespace SimpleFFmpegGUI
             }
 
 
-            //修改扩展名
+            //Thay đổi phần mở rộng
             if (!string.IsNullOrEmpty(a?.Format))
             {
                 VideoFormat format = VideoFormat.Formats.Where(p => p.Name == a.Format || p.Extension == a.Format).FirstOrDefault();
@@ -126,10 +126,10 @@ namespace SimpleFFmpegGUI
                 }
             }
 
-            //获取非重复文件名
+            //Nhận tên tệp không trùng lặp
             task.RealOutput = FileSystem.GetNoDuplicateFile(output);
 
-            //创建目录
+            //Tạo thư mục
             if (!new FileInfo(task.RealOutput).Directory.Exists)
             {
                 new FileInfo(task.RealOutput).Directory.Create();
