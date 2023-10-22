@@ -37,7 +37,7 @@ namespace SimpleFFmpegGUI.Model
             {
                 changed = true;
                 item.Status = TaskStatus.Error;
-                item.Message = "状态异常：启动时处于正在运行状态";
+                item.Message = "Ngoại lệ trạng thái: Ở trạng thái đang chạy khi khởi động";
             }
             if (changed)
             {
@@ -57,7 +57,7 @@ namespace SimpleFFmpegGUI.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //对于非结构化数据，采用Json的方式进行存储
+            //Đối với dữ liệu phi cấu trúc, JSON được sử dụng để lưu trữ
             var listConverter = new EFJsonConverter<List<InputArguments>>();
             var argConverter = new EFJsonConverter<OutputArguments>();
             base.OnModelCreating(modelBuilder);
@@ -131,8 +131,8 @@ namespace SimpleFFmpegGUI.Model
 
         private static void Migrate20230408(SqliteConnection sqlite)
         {
-            Debug.WriteLine("数据库迁移："+nameof(Migrate20230408));
-            Console.WriteLine("数据库迁移："+nameof(Migrate20230408));
+            Debug.WriteLine("Di chuyển cơ sở dữ liệu："+nameof(Migrate20230408));
+            Console.WriteLine("Di chuyển cơ sở dữ liệu："+nameof(Migrate20230408));
             new SqliteCommand("CREATE INDEX IX_Logs_Type ON Logs (Type);", sqlite).ExecuteNonQuery();
             new SqliteCommand("CREATE INDEX IX_Logs_Time ON Logs (Time);", sqlite).ExecuteNonQuery();
             new SqliteCommand("CREATE INDEX IX_Logs_TaskId ON Logs (TaskId);", sqlite).ExecuteNonQuery();
