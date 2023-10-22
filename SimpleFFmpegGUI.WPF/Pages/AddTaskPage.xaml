@@ -54,14 +54,14 @@
                 Grid.RowSpan="3"
                 Grid.Column="2"
                 Padding="0"
-                Header="预设">
+                Header="Mặc định">
                 <panels:PresetsPanel x:Name="presetsPanel" />
             </GroupBox>
             <GroupBox
                 Grid.Row="4"
                 Grid.Column="2"
                 Padding="0"
-                Header="参数">
+                Header="Tham số">
                 <panels:CodeArgumentsPanel x:Name="argumentsPanel" />
             </GroupBox>
         </Grid>
@@ -73,7 +73,7 @@
             <ui:AppBarButton
                 Click="AddInputButton_Click"
                 IsEnabled="{Binding CanAddFile}"
-                Label="新增输入文件">
+                Label="Thêm tệp đầu vào">
                 <ui:AppBarButton.Icon>
                     <ui:FontIcon Glyph="&#xECC8;" />
                 </ui:AppBarButton.Icon>
@@ -82,21 +82,21 @@
                 Click="BrowseAndAddInputButton_Click"
                 Icon="OpenFile"
                 IsEnabled="{Binding CanAddFile}"
-                Label="浏览并新增输入文件" />
+                Label="Duyệt và thêm tệp đầu vào" />
             <ui:AppBarButton
                 Click="ClearFilesButton_Click"
                 Icon="Clear"
-                Label="清空输入文件" />
+                Label="Làm trống tệp đầu vào" />
             <ui:AppBarSeparator />
             <ui:AppBarButton
                 Click="SaveToPresetButton_Click"
                 Icon="Save"
-                Label="保存为预设" />
+                Label="Lưu dưới dạng giá trị đặt trước" />
             <ui:AppBarSeparator />
 
             <ui:AppBarButton
                 Click="AddToRemoteHostButton_Click"
-                Label="创建到远程主机">
+                Label="Tạo cho máy chủ từ xa">
                 <ui:AppBarButton.Icon>
                     <ui:FontIcon Glyph="&#xE836;" />
                 </ui:AppBarButton.Icon>
@@ -104,12 +104,12 @@
             <ui:AppBarButton
                 Click="AddToQueueButton_Click"
                 Icon="Add"
-                Label="创建任务" />
+                Label="Tạo nhiệm vụ" />
             <ui:AppBarSeparator />
             <ui:CommandBar.SecondaryCommands>
                 <ui:AppBarToggleButton
                     IsChecked="{Binding Source={x:Static r:Config.Instance}, Path=StartQueueAfterAddTask}"
-                    Label="创建后启动队列">
+                    Label="Bắt đầu hàng đợi sau khi tạo">
                     <ui:AppBarToggleButton.Icon>
                         <ui:FontIcon Glyph="&#xE756;" />
                     </ui:AppBarToggleButton.Icon>
@@ -117,10 +117,10 @@
                 <ui:AppBarToggleButton
                     Icon="Clear"
                     IsChecked="{Binding Source={x:Static r:Config.Instance}, Path=ClearFilesAfterAddTask}"
-                    Label="创建后清空文件" />
+                    Label="Làm trống tệp sau khi tạo" />
                 <ui:AppBarButton
                     Click="FFmpegArgsButton_Click"
-                    Label="查看当前的输出参数">
+                    Label="Xem các thông số đầu ra hiện tại">
                     <ui:AppBarButton.Icon>
                         <ui:FontIcon Glyph="&#xE943;" />
                     </ui:AppBarButton.Icon>
