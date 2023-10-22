@@ -116,7 +116,7 @@ namespace SimpleFFmpegGUI.WPF.Pages
             }
             catch (FFmpegArgumentException ex)
             {
-                await CommonDialog.ShowErrorDialogAsync(ex.Message, null, title: "参数错误");
+                await CommonDialog.ShowErrorDialogAsync(ex.Message, null, title: "Lỗi tham số");
                 return;
             }
 
@@ -127,21 +127,21 @@ namespace SimpleFFmpegGUI.WPF.Pages
                 OutputArguments args = argumentsPanel.GetOutputArguments();
                 switch (ViewModel.Type)
                 {
-                    case TaskType.Code://需要将输入文件单独加入任务
+                    case TaskType.Code://Bạn cần thêm tệp đầu vào vào tác vụ riêng biệt
                         foreach (var input in inputs)
                         {
                             TaskInfo task = null;
                             await Task.Run(() => task = TaskManager.AddTask(TaskType.Code, new List<InputArguments>() { input }, fileIOPanel.GetOutput(input), args));
                             Dispatcher.Invoke(() => App.ServiceProvider.GetService<TasksAndStatuses>().Tasks.Insert(0, UITaskInfo.FromTask(task)));
                         }
-                        this.CreateMessage().QueueSuccess($"已加入{inputs.Count}个任务队列");
+                        this.CreateMessage().QueueSuccess($"Đã thêm {inputs.Count} hàng đợi nhiệm vụ");
                         break;
-                    case TaskType.Custom or TaskType.Compare://不存在文件输出
+                    case TaskType.Custom or TaskType.Compare://Không có đầu ra tệp nào tồn tại
                         {
                             TaskInfo task = null;
                             await Task.Run(() => task = TaskManager.AddTask(ViewModel.Type, inputs, null, args));
                             App.ServiceProvider.GetService<TasksAndStatuses>().Tasks.Insert(0, UITaskInfo.FromTask(task));
-                            this.CreateMessage().QueueSuccess("已加入队列");
+                            this.CreateMessage().QueueSuccess("Xếp hàng");
                         }
                         break;
                     default:
@@ -149,7 +149,7 @@ namespace SimpleFFmpegGUI.WPF.Pages
                             TaskInfo task = null;
                             await Task.Run(() => task = TaskManager.AddTask(ViewModel.Type, inputs, fileIOPanel.GetOutput(inputs[0]), args));
                             App.ServiceProvider.GetService<TasksAndStatuses>().Tasks.Insert(0, UITaskInfo.FromTask(task));
-                            this.CreateMessage().QueueSuccess("已加入队列");
+                            this.CreateMessage().QueueSuccess("Xếp hàng");
                         }
                         break;
                 }
@@ -161,13 +161,13 @@ namespace SimpleFFmpegGUI.WPF.Pages
                 if (Config.Instance.StartQueueAfterAddTask)
                 {
                     await Task.Run(() => App.ServiceProvider.GetService<QueueManager>().StartQueue());
-                    this.CreateMessage().QueueSuccess("已开始队列");
+                    this.CreateMessage().QueueSuccess("Hàng đợi bắt đầu");
                 }
                 SaveAsLastOutputArguments(args);
             }
             catch (Exception ex)
             {
-                this.CreateMessage().QueueError("加入队列失败", ex);
+                this.CreateMessage().QueueError("Không thể tham gia hàng đợi", ex);
             }
             finally
             {
@@ -222,13 +222,13 @@ namespace SimpleFFmpegGUI.WPF.Pages
             }
             catch (FFmpegArgumentException ex)
             {
-                await CommonDialog.ShowErrorDialogAsync(ex.Message, null, title: "参数错误");
+                await CommonDialog.ShowErrorDialogAsync(ex.Message, null, title: "Lỗi tham số");
                 return;
             }
 
             var items = Config.Instance.RemoteHosts.Select(p =>
             new SelectDialogItem(p.Name, p.Address));
-            var index = await CommonDialog.ShowSelectItemDialogAsync("请确保在远程主机的输入文件夹中有同名文件", items);
+            var index = await CommonDialog.ShowSelectItemDialogAsync("Đảm bảo rằng bạn có một tệp có cùng tên trong thư mục đầu vào của máy chủ từ xa", items);
             if (index < 0)
             {
                 return;
@@ -240,7 +240,7 @@ namespace SimpleFFmpegGUI.WPF.Pages
                 List<InputArguments> inputs = fileIOPanel.GetInputs().Adapt<List<InputArguments>>();
                 foreach (var i in inputs)
                 {
-                    //绝对路径，仅保留文件名
+                    //Đường dẫn tuyệt đối, chỉ để lại tên tệp
                     if (i.FilePath.Contains(':'))
                     {
                         i.FilePath = System.IO.Path.GetFileName(i.FilePath);
@@ -263,11 +263,11 @@ namespace SimpleFFmpegGUI.WPF.Pages
                     fileIOPanel.Reset();
                 }
                 SaveAsLastOutputArguments(args);
-                this.CreateMessage().QueueSuccess("已加入到远程主机" + host.Name);
+                this.CreateMessage().QueueSuccess("Đã tham gia vào máy chủ từ xa" + host.Name);
             }
             catch (Exception ex)
             {
-                await CommonDialog.ShowErrorDialogAsync(ex, "加入远程主机失败");
+                await CommonDialog.ShowErrorDialogAsync(ex, "Không thể tham gia máy chủ từ xa");
             }
             finally
             {
@@ -322,11 +322,11 @@ namespace SimpleFFmpegGUI.WPF.Pages
             try
             {
                 OutputArguments args = argumentsPanel.GetOutputArguments();
-                await CommonDialog.ShowOkDialogAsync("输出参数", FFmpegManager.TestOutputArguments(args));
+                await CommonDialog.ShowOkDialogAsync("Thông số đầu ra", FFmpegManager.TestOutputArguments(args));
             }
             catch (Exception ex)
             {
-                await CommonDialog.ShowErrorDialogAsync(ex, "获取参数失败");
+                await CommonDialog.ShowErrorDialogAsync(ex, "Không lấy được tham số");
             }
         }
 
