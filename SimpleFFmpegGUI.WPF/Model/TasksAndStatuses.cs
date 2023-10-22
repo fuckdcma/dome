@@ -69,7 +69,7 @@ namespace SimpleFFmpegGUI.WPF.Model
             Debug.Assert(task.ProcessStatus != null);
 
             task.ProcessStatus = newStatus;
-            if (manager == Queue.MainQueueManager || Queue.Managers.Count == 1)//主队列，或者只有一个任务，则在状态栏上显示进度
+            if (manager == Queue.MainQueueManager || Queue.Managers.Count == 1)//Hàng đợi chính hoặc chỉ một tác vụ, hiển thị tiến trình trên thanh trạng thái
             {
                 GetMainWindowAnd(mainWindow =>
                 {
@@ -88,19 +88,19 @@ namespace SimpleFFmpegGUI.WPF.Model
         }
 
         /// <summary>
-        /// 任务队列发生改变
+        /// Hàng đợi tác vụ thay đổi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Queue_TaskManagersChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)//新增任务
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)//Thêm nhiệm vụ mới
             {
                 var manager = e.NewItems[0] as FFmpegManager;
-                var unstartStatus = new StatusDto(manager.Task); //先放入一个StatusDto进行占位，因为此时Status还未生成
-                var task = Tasks.FirstOrDefault(p => p.Id == manager.Task.Id);//找到对应的UITaskInfo
+                var unstartStatus = new StatusDto(manager.Task); //Đặt StatusDto làm trình giữ chỗ trước tiên, vì Trạng thái chưa được tạo
+                var task = Tasks.FirstOrDefault(p => p.Id == manager.Task.Id);//Tìm UITaskInfo tương ứng
                 Debug.Assert(task != null);
-                task.UpdateSelf(); //用TaskInfo实体更新UITaskInfo
+                task.UpdateSelf(); //Cập nhật UITaskInfo với thực thể TaskInfo
                 task.ProcessStatus = unstartStatus;
                 task.ProcessManager = manager;
                 if (manager == Queue.MainQueueManager)
