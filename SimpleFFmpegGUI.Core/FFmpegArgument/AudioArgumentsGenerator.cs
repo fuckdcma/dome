@@ -6,12 +6,12 @@ namespace SimpleFFmpegGUI.FFmpegArgument
     public class AudioArgumentsGenerator : ArgumentsGeneratorBase
     {
         /// <summary>
-        /// 编码
+        /// Mã hóa
         /// </summary>
         public AudioCodec AudioCodec { get; private set; }
 
         /// <summary>
-        /// 码率
+        /// Bitrate
         /// </summary>
         /// <param name="kb"></param>
         /// <returns></returns>
@@ -25,7 +25,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 编码
+        /// Audio codec
         /// </summary>
         /// <param name="codec"></param>
         /// <returns></returns>
@@ -42,7 +42,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
                 }
             }
             AudioCodec = new GeneralAudioCodec();
-            if (codec is not ("自动" or "auto") && !string.IsNullOrEmpty(codec))
+            if (codec is not ("Tự động" or "auto") && !string.IsNullOrEmpty(codec))
             {
                 arguments.Add(new FFmpegArgumentItem("c:a", codec));
             }
@@ -50,7 +50,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 复制音频流
+        /// sao chép Audio codec
         /// </summary>
         /// <returns></returns>
         public AudioArgumentsGenerator Copy()
@@ -60,7 +60,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 禁用音频流
+        /// Vô hiệu hóa luồng âm thanh
         /// </summary>
         /// <returns></returns>
         public AudioArgumentsGenerator Disable()
