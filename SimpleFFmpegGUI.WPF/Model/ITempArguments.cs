@@ -5,12 +5,12 @@ namespace SimpleFFmpegGUI.WPF.Model
     public interface ITempArguments : INotifyPropertyChanged
     {
         /// <summary>
-        /// 将原始数据更新到UI数据
+        /// Cập nhật dữ liệu gốc vào dữ liệu UI
         /// </summary>
         public void Update();
 
         /// <summary>
-        /// 从UI数据应用到原始数据
+        /// Áp dụng từ dữ liệu UI cho dữ liệu thô
         /// </summary>
         public void Apply();
     }
