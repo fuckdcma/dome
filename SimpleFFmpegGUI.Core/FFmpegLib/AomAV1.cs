@@ -25,7 +25,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             yield return new FFmpegArgumentItem("row-mt", "1");
 
-            //寻找将线程数切成两个最接近的数
+            //Tìm kiếm hai số gần nhất với số lượng luồng
             int threadCount = Environment.ProcessorCount;
             int best = 1;
             double sqrt = Math.Sqrt(threadCount);
