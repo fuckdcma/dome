@@ -18,7 +18,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (speed > MaxSpeedLevel)
             {
-                throw new FFmpegArgumentException("速度值超出范围");
+                throw new FFmpegArgumentException("Giá trị tốc độ vượt quá phạm vi");
             }
             return new FFmpegArgumentItem("preset", FFmpegEnums.Presets[speed]); throw new System.NotImplementedException();
         }
