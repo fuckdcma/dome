@@ -32,11 +32,11 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock VerticalAlignment="Center">
-                <Run Text="共" />
+                <Run Text="Tổng" />
                 <Run Text="{Binding AllTasks.Count, Mode=OneWay}" />
-                <Run Text="条，共" />
+                <Run Text="Article, total" />
                 <Run Text="{Binding AllTasks.PageCount, Mode=OneWay}" />
-                <Run Text="页" />
+                <Run Text="Trang" />
             </TextBlock>
             <ListBox
                 Grid.Column="2"
@@ -62,7 +62,7 @@
                 SelectedItem="{Binding AllTasks.CountPerPage}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding ., StringFormat={}每页{0}条}" />
+                        <TextBlock Text="{Binding ., StringFormat={}{0} mỗi trang}" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
                 <system:Int32>10</system:Int32>
