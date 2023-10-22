@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SimpleFFmpegGUI.Manager
 {
     /// <summary>
-    /// 计算机电源管理，控制关机
+    /// Quản lý nguồn điện máy tính, tắt điều khiển
     /// </summary>
     public class PowerManager
     {
@@ -25,16 +25,16 @@ namespace SimpleFFmpegGUI.Manager
             {
                 shutdownAfterQueueFinished = value;
                 using Logger logger = new Logger();
-                logger.Info("收到队列结束后自动关机命令：" + value.ToString());
+                logger.Info("Nhận lệnh tự động tắt khi hàng đợi kết thúc：" + value.ToString());
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:验证平台兼容性", Justification = "<挂起>")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416: Xác minh tính tương thích của nền tảng", Justification = "<Đình chỉ>")]
         public static async Task<CpuCoreUsageDto[]> GetCpuUsageAsync(TimeSpan sampleSpan=default,Task task=default)
         {
             if(sampleSpan ==default && task==default)
             {
-                throw new ArgumentException("至少提供一个参数");
+                throw new ArgumentException("Cung cấp ít nhất một thông số");
             }
 
             PerformanceCounter cpuCounter;
@@ -106,18 +106,18 @@ namespace SimpleFFmpegGUI.Manager
         public void AbortShutdown()
         {
             using Logger logger = new Logger();
-            logger.Warn("收到终止关机命令");
+            logger.Warn("Lệnh dừng tắt máy đã được nhận");
             Shutdown(false);
         }
 
         public void Shutdown()
         {
             using Logger logger = new Logger();
-            logger.Warn("收到关机命令");
+            logger.Warn("Một lệnh tắt máy đã được nhận");
             Shutdown(true);
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:验证平台兼容性", Justification = "<挂起>")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416: Xác minh tính tương thích của nền tảng", Justification = "<Đình chỉ>")]
         private static double CalculateCpuUsage(CounterSample oldSample, CounterSample newSample)
         {
             double difference = newSample.RawValue - oldSample.RawValue;
