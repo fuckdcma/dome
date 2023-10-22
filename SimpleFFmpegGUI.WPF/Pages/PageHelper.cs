@@ -12,13 +12,13 @@ namespace SimpleFFmpegGUI.WPF.Pages
         {
             return typeof(T).Name switch
             {
-                nameof(AddTaskPage) => "新增任务",
-                nameof(MediaInfoPage) => "媒体信息",
-                nameof(PresetsPage) => "所有预设",
-                nameof(TasksPage) => "所有任务",
-                nameof(LogsPage) => "日志",
-                nameof(SettingPage) => "设置",
-                nameof(FFmpegOutputPage) => "FFmpeg输出命令行",
+                nameof(AddTaskPage) => "Thêm nhiệm vụ mới",
+                nameof(MediaInfoPage) => "Thông tin truyền thông",
+                nameof(PresetsPage) => "Tất cả các cài đặt trước",
+                nameof(TasksPage) => "Tất cả nhiệm vụ",
+                nameof(LogsPage) => "Nhật ký",
+                nameof(SettingPage) => "Cài đặt",
+                nameof(FFmpegOutputPage) => "FDòng lệnh đầu ra FMPEG",
                 _ => throw new NotImplementedException(),
             };
         }
