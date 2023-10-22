@@ -69,43 +69,43 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 解析编码设置（由NewBing生成）
+        /// Phân tích cú pháp cài đặt mã hóa (được tạo bởi NewBing)
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         private static List<MediaInfoItem> ParseEncodingSettings(string input)
         {
-            List<MediaInfoItem> settings = new List<MediaInfoItem>(); // 创建一个空列表来存储编码设置项
-            var parts = input.Split('/').Select(p => p.Trim()); // 用"/"来分割输入字符串为一个字符串数组
-            foreach (string part in parts) // 遍历数组中的每个字符串
+            List<MediaInfoItem> settings = new List<MediaInfoItem>(); // Tạo danh sách trống để lưu trữ các mục cài đặt mã hóa
+            var parts = input.Split('/').Select(p => p.Trim()); // Sử dụng "/" để tách chuỗi đầu vào thành một mảng chuỗi
+            foreach (string part in parts) // Lặp qua từng chuỗi trong mảng
             {
-                MediaInfoItem setting = new MediaInfoItem(); // 创建一个新的编码设置项对象
-                if (part.Contains('=')) // 检查字符串是否包含"="
+                MediaInfoItem setting = new MediaInfoItem(); // Tạo đối tượng mục cài đặt mã hóa mới
+                if (part.Contains('=')) // Kiểm tra xem chuỗi có chứa "=" không
                 {
-                    string[] pair = part.Split('='); // 用"="来分割字符串为两部分
-                    setting.Name = pair[0]; // 把第一部分赋值给编码设置项的名称属性
-                    string value = pair[1]; // 把第二部分作为一个字符串
-                    if (int.TryParse(value, out int intValue)) // 尝试把值解析为一个整数
+                    string[] pair = part.Split('='); // Sử dụng "=" để chia chuỗi thành hai phần
+                    setting.Name = pair[0]; // Gán phần đầu tiên cho thuộc tính name của mục cài đặt mã hóa
+                    string value = pair[1]; // Lấy phần thứ hai làm chuỗi
+                    if (int.TryParse(value, out int intValue)) // Cố gắng phân tích cú pháp giá trị thành một số nguyên
                     {
-                        setting.Value = intValue; // 把整数值赋值给编码设置项的值属性
+                        setting.Value = intValue; // Gán giá trị số nguyên cho thuộc tính giá trị của mục cài đặt mã hóa
                     }
-                    else if (double.TryParse(value, out double doubleValue)) // 尝试把值解析为一个双精度浮点数
+                    else if (double.TryParse(value, out double doubleValue)) // Cố gắng phân tích giá trị dưới dạng số dấu phẩy động có độ chính xác kép
                     {
-                        setting.Value = doubleValue; // 把双精度浮点数赋值给编码设置项的值属性
+                        setting.Value = doubleValue; // Gán số dấu phẩy động có độ chính xác kép cho thuộc tính giá trị của mục nhập cài đặt mã hóa
                     }
-                    else // 如果值不是一个数字
+                    else // Nếu giá trị không phải là một số
                     {
-                        setting.Value = value; // 把字符串值赋值给编码设置项的值属性
+                        setting.Value = value; // Gán một giá trị chuỗi cho thuộc tính giá trị của mục cài đặt mã hóa
                     }
                 }
-                else // 如果字符串不包含"="
+                else // Nếu chuỗi không chứa "="
                 {
-                    setting.Name = part; // 把整个字符串赋值给编码设置项的名称属性
-                    setting.Value = true; // 把true赋值给编码设置项的值属性
+                    setting.Name = part; // Gán toàn bộ chuỗi cho thuộc tính name của mục cài đặt mã hóa
+                    setting.Value = true; // Gán đúng cho thuộc tính giá trị của mục cài đặt mã hóa
                 }
-                settings.Add(setting); // 把编码设置项对象添加到列表中
+                settings.Add(setting); // Thêm đối tượng thiết đặt mã hóa vào danh sách
             }
-            return settings; // 返回编码设置项列表
+            return settings; // Trả về danh sách các mục thiết đặt mã hóa
         }
 
         private static MediaInfoGeneral ParseMediaInfoJSON(JObject json)
@@ -147,7 +147,7 @@ namespace SimpleFFmpegGUI.Manager
             var tracks = JObject.Parse(mediaInfo.Raw)["media"]["track"] as JArray;
             if (mediaInfo.Videos.Count == 0)
             {
-                throw new Exception("源文件不含视频");
+                throw new Exception("Tệp nguồn không chứa video");
             }
             var video = mediaInfo.Videos[0];
 
@@ -155,7 +155,7 @@ namespace SimpleFFmpegGUI.Manager
             {
                 "AVC" => VideoCodec.X264.Name,
                 "HEVC" => VideoCodec.X265.Name,
-                _ => throw new Exception("仅支持H264或H265")
+                _ => throw new Exception("Chỉ hỗ trợ H264 hoặc H265")
             };
 
             if (video.EncodingSettings != null && video.EncodingSettings.Count > 0)
@@ -265,7 +265,7 @@ namespace SimpleFFmpegGUI.Manager
             }
             else
             {
-                throw new Exception("源视频未提供编码设置信息，无法转换为输出参数");
+                throw new Exception("Video nguồn không cung cấp thông tin cài đặt mã hóa và không thể chuyển đổi thành thông số đầu ra");
             }
 
             return arguments;
