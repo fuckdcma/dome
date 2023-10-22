@@ -18,15 +18,15 @@
             <ui:AppBarButton
                 Click="DeleteAllButton_Click"
                 Icon="Delete"
-                Label="删除所有预设" />
+                Label="Xóa tất cả cài đặt trước" />
             <ui:AppBarButton
                 Click="ImportButton_Click"
                 Icon="Download"
-                Label="导入" />
+                Label="Import" />
             <ui:AppBarButton
                 Click="ExportButton_Click"
                 Icon="Upload"
-                Label="导出所有预设" />
+                Label="Export" />
         </ui:CommandBar>
         <Grid x:Name="grd">
             <Grid.RowDefinitions>
@@ -125,16 +125,16 @@
                         <Button
                             Width="96"
                             Click="SetDefaultButton_Click"
-                            Content="设为默认"
+                            Content="Đặt làm mặc định"
                             IsEnabled="{Binding SelectedPreset.Default, Converter={StaticResource InverseBoolConverter}}" />
                         <Button
                             Width="96"
                             Click="CancelButton_Click"
-                            Content="取消" />
+                            Content="Hủy" />
                         <Button
                             Width="96"
                             Click="SaveButton_Click"
-                            Content="保存" />
+                            Content="Lưu" />
                     </ui:SimpleStackPanel>
                 </Grid>
             </Border>
