@@ -54,7 +54,7 @@
             HorizontalScrollBarVisibility="Auto"
             Visibility="{Binding MediaInfo, Converter={StaticResource NotNullConverter}}">
             <ui:SimpleStackPanel Spacing="8">
-                <GroupBox Header="基本信息">
+                <GroupBox Header="Thông tin cơ bản">
                     <GroupBox.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock
@@ -64,16 +64,16 @@
                     </GroupBox.HeaderTemplate>
                     <ui:SimpleStackPanel Spacing="4">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource KeyStyle}">长度</TextBlock>
+                            <TextBlock Style="{StaticResource KeyStyle}">Thời lượng</TextBlock>
                             <TextBlock Text="{Binding MediaInfo.Duration, Mode=OneWay, StringFormat=hh\\:mm\\:ss\\.fff}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource KeyStyle}">格式</TextBlock>
+                            <TextBlock Style="{StaticResource KeyStyle}">Format</TextBlock>
                             <TextBlock Text="{Binding MediaInfo.Format}" />
 
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource KeyStyle}">码率</TextBlock>
+                            <TextBlock Style="{StaticResource KeyStyle}">Tỉ lệ mã</TextBlock>
                             <TextBlock Text="{Binding MediaInfo.OverallBitRate, Converter={StaticResource Bitrate2StringConverter}}" />
                         </StackPanel>
                     </ui:SimpleStackPanel>
@@ -86,7 +86,7 @@
                                 <GroupBox.HeaderTemplate>
                                     <DataTemplate>
                                         <TextBlock
-                                            Text="{Binding ., StringFormat={}视频 {0}}"
+                                            Text="{Binding ., StringFormat={}Video {0}}"
                                             TextAlignment="Center" />
                                     </DataTemplate>
                                 </GroupBox.HeaderTemplate>
@@ -95,32 +95,32 @@
                                     Spacing="4">
 
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource KeyStyle}">编码</TextBlock>
+                                        <TextBlock Style="{StaticResource KeyStyle}">Mã hóa</TextBlock>
                                         <TextBlock Text="{Binding Format}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="编码预设" />
+                                            Text="Cài đặt trước mã hóa" />
                                         <TextBlock Text="{Binding Format_Profile}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="码率" />
+                                            Text="Tỷ lệ mã" />
                                         <TextBlock Text="{Binding BitRate, Converter={StaticResource Bitrate2StringConverter}}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="帧率" />
+                                            Text="Tỷ lệ khung hình" />
                                         <TextBlock Text="{Binding FrameRate, StringFormat={}{0:0.000}}" />
                                     </StackPanel>
 
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="分辨率" />
+                                            Text="Resolution" />
                                         <TextBlock>
                                             <TextBlock.Text>
                                                 <MultiBinding StringFormat="{}{0}×{1}">
@@ -133,13 +133,13 @@
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="比例" />
+                                            Text="Tỷ lệ" />
                                         <TextBlock Text="{Binding DisplayAspectRatio, Mode=OneWay}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="像素格式" />
+                                            Text="Định dạng pixel" />
                                         <TextBlock>
                                             <TextBlock.Text>
                                                 <MultiBinding StringFormat="{}{0} {1}">
@@ -152,17 +152,17 @@
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="色彩深度" />
+                                            Text="Độ sâu màu" />
                                         <TextBlock Text="{Binding BitDepth}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="旋转" />
+                                            Text="Xoay" />
                                         <TextBlock Text="{Binding Rotation}" />
                                     </StackPanel>
                                     <Expander
-                                        Header="编码设置"
+                                        Header="Cài đặt mã hóa"
                                         Visibility="{Binding EncodingSettings, Converter={StaticResource CountMoreThanZeroConverter}}">
                                         <ItemsControl ItemsSource="{Binding EncodingSettings}">
                                             <ItemsControl.ItemTemplate>
@@ -194,7 +194,7 @@
                                 <GroupBox.HeaderTemplate>
                                     <DataTemplate>
                                         <TextBlock
-                                            Text="{Binding ., StringFormat={}音频 {0}}"
+                                            Text="{Binding ., StringFormat={}Âm thanh {0}}"
                                             TextAlignment="Center" />
                                     </DataTemplate>
                                 </GroupBox.HeaderTemplate>
@@ -203,38 +203,38 @@
                                     Spacing="4">
 
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource KeyStyle}">编码</TextBlock>
+                                        <TextBlock Style="{StaticResource KeyStyle}">Mã hóa</TextBlock>
                                         <TextBlock Text="{Binding Format}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="码率" />
+                                            Text="Tỷ lệ mã" />
                                         <TextBlock Text="{Binding BitRate, Converter={StaticResource Bitrate2StringConverter}}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="声道数" />
+                                            Text="Số kênh" />
                                         <TextBlock Text="{Binding Channels}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="声道布局" />
+                                            Text="Bố cục kênh" />
                                         <TextBlock Text="{Binding ChannelLayout}" />
                                     </StackPanel>
 
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="采样率" />
+                                            Text="Tỷ lệ mẫu" />
                                         <TextBlock Text="{Binding SamplingRate}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="默认" />
+                                            Text="Mặc định" />
                                         <TextBlock Text="{Binding Default}" />
                                     </StackPanel>
                                 </ui:SimpleStackPanel>
@@ -250,7 +250,7 @@
                                 <GroupBox.HeaderTemplate>
                                     <DataTemplate>
                                         <TextBlock
-                                            Text="{Binding ., StringFormat={}字幕 {0}}"
+                                            Text="{Binding ., StringFormat={}Phụ đề {0}}"
                                             TextAlignment="Center" />
                                     </DataTemplate>
                                 </GroupBox.HeaderTemplate>
@@ -259,25 +259,25 @@
                                     Spacing="4">
 
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource KeyStyle}">编码</TextBlock>
+                                        <TextBlock Style="{StaticResource KeyStyle}">Mã hóa</TextBlock>
                                         <TextBlock Text="{Binding Format}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="语言" />
+                                            Text="Ngôn ngữ" />
                                         <TextBlock Text="{Binding Language}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="标题" />
+                                            Text="Tiêu đề" />
                                         <TextBlock Text="{Binding Title}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
                                             Style="{StaticResource KeyStyle}"
-                                            Text="默认" />
+                                            Text="Mặc định" />
                                         <TextBlock Text="{Binding Default}" />
                                     </StackPanel>
                                 </ui:SimpleStackPanel>
@@ -295,7 +295,7 @@
             c:SmoothScrollViewerHelper.SmoothScroll="{Binding Source={x:Static r:Config.Instance}, Path=SmoothScroll}">
             <GroupBox
                 Margin="0,0,16,0"
-                Header="详情"
+                Header="Chi tiết"
                 Visibility="{Binding MediaInfo, Converter={StaticResource NotNullConverter}}">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
