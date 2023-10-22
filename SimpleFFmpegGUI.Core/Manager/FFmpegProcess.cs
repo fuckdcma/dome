@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SimpleFFmpegGUI.Manager
 {
     /// <summary>
-    /// FFmpeg进程
+    /// Tiến trình FFmpeg
     /// </summary>
     public class FFmpegProcess
     {
@@ -45,14 +45,14 @@ namespace SimpleFFmpegGUI.Manager
         public event EventHandler<FFmpegOutputEventArgs> Output;
 
         /// <summary>
-        /// CPU使用率
+        /// CPU đã dùng
         /// </summary>
         public double CpuUsage => process.HasExited ? process.TotalProcessorTime.TotalSeconds / Environment.ProcessorCount / RunningTime.TotalSeconds : throw new Exception("进程还未结束");
 
         /// <summary>
-        /// 进程ID
+        /// ID Tiến trình
         /// </summary>
-        public int Id => !started ? throw new Exception("进程还未开始运行") : process.Id;
+            public int Id => !started ? throw new Exception("Tiến trình chưa bắt đầu chạy") : process.Id;
 
         public int Priority
         {
@@ -60,7 +60,7 @@ namespace SimpleFFmpegGUI.Manager
             {
                 if (started && process.HasExited)
                 {
-                    throw new Exception("进程已经退出");
+                    throw new Exception("Tiến trình này đã EXIT!");
                 }
 
                 return priority switch
@@ -78,7 +78,7 @@ namespace SimpleFFmpegGUI.Manager
             {
                 if (started && process.HasExited)
                 {
-                    throw new Exception("进程已经退出");
+                    throw new Exception("Tiến trình này đã EXIT!");
                 }
                 priority = value switch
                 {
@@ -97,11 +97,11 @@ namespace SimpleFFmpegGUI.Manager
             }
         }
         /// <summary>
-        /// 运行时间
+        /// Thời gian trôi qua
         /// </summary>
-        public TimeSpan RunningTime => process.HasExited ? process.ExitTime - process.StartTime : throw new Exception("进程还未结束");
+        public TimeSpan RunningTime => process.HasExited ? process.ExitTime - process.StartTime : throw new Exception("Tiến trình vẫn chưa kết thúc");
         /// <summary>
-        /// 启动进程
+        /// Bắt đầu tiến trình
         /// </summary>
         /// <param name="workingDir"></param>
         /// <param name="cancellationToken"></param>
@@ -111,13 +111,13 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (started)
             {
-                throw new Exception("已经开始运行，不可再次运行");
+                throw new Exception("Nó đã bắt đầu chạy, không thể chạy lại");
             }
             started = true;
 
             if (!string.IsNullOrEmpty(workingDir))
             {
-                //2Pass时会生成文件名相同的临时文件，如果多个FFmpeg一起运行会冲突，因此需要设置单独的工作目录
+                //2Pass tạo các tệp tạm thời có cùng tên tệp và xung đột nếu nhiều FFmpegs được chạy cùng nhau, do đó cần đặt một thư mục làm việc riêng biệt
                 process.StartInfo.WorkingDirectory = workingDir;
             }
             tcs = new TaskCompletionSource<bool>();
@@ -146,18 +146,18 @@ namespace SimpleFFmpegGUI.Manager
                      }
                      else if (exit)
                      {
-                         tcs.SetException(new TaskCanceledException("进程被取消"));
+                         tcs.SetException(new TaskCanceledException("Tiến trình bị hủy!"));
                      }
                      else
                      {
-                         tcs.SetException(new Exception($"进程退出：" + process.ExitCode));
+                         tcs.SetException(new Exception($"Thoát tiến trình：" + process.ExitCode));
                      }
                      await Task.Delay(10000);
                      process.Dispose();
                  }
                  catch (Exception ex)
                  {
-                     tcs.SetException(new Exception($"进程处理程序发生错误：" + ex.Message, ex));
+                     tcs.SetException(new Exception($"Đã xảy ra lỗi với trình xử lý quy trình：" + ex.Message, ex));
                  }
              };
             return tcs.Task;
@@ -167,13 +167,13 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (tcs == null)
             {
-                throw new Exception("进程还未开始");
+                throw new Exception("Tiến trình vẫn chưa bắt đầu");
             }
             return tcs.Task;
         }
 
         /// <summary>
-        /// 进程输出事件接收
+        /// Các sự kiện đầu ra của quy trình được nhận
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
