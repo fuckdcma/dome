@@ -16,7 +16,7 @@ namespace SimpleFFmpegGUI.Manager
             foreach (var item in db.Tasks.Where(p => p.Status == TaskStatus.Processing))
             {
                 item.Status = TaskStatus.Error;
-                item.Message = "状态异常：启动时处于正在运行状态";
+                item.Message = "Ngoại lệ trạng thái: Ở trạng thái đang chạy khi khởi động";
             }
             db.SaveChanges();
         }
@@ -34,7 +34,7 @@ namespace SimpleFFmpegGUI.Manager
             db.Tasks.Add(task);
             db.SaveChanges();
             using Logger logger = new Logger();
-            logger.Info(task, "新建任务");
+            logger.Info(task, "Tạo nhiệm vụ mới");
             return task;
         }
 
@@ -114,11 +114,11 @@ namespace SimpleFFmpegGUI.Manager
             TaskInfo task = db.Tasks.Find(id);
             if (task == null)
             {
-                throw new ArgumentException($"找不到ID为{id}的任务");
+                throw new ArgumentException($"Không thể tìm thấy tác vụ có ID {id}");
             }
             if (queue.Tasks.Any(p => p.Id == id))
             {
-                throw new Exception("ID为{id}的任务正在进行中");
+                throw new Exception("Tác vụ với ID {id} đang được tiến hành");
             }
             task.Status = TaskStatus.Queue;
             db.Update(task);
@@ -155,7 +155,7 @@ namespace SimpleFFmpegGUI.Manager
             TaskInfo task = db.Tasks.Find(id);
             if (task == null)
             {
-                throw new ArgumentException($"找不到ID为{id}的任务");
+                throw new ArgumentException($"Không thể tìm thấy tác vụ có ID {id}");
             }
             CheckCancelingTask(task);
             if (queue.Tasks.Any(p => p.Id == task.Id))
@@ -173,7 +173,7 @@ namespace SimpleFFmpegGUI.Manager
             TaskInfo task = await db.Tasks.FindAsync(id);
             if (task == null)
             {
-                throw new ArgumentException($"找不到ID为{id}的任务");
+                throw new ArgumentException($"Không thể tìm thấy tác vụ có ID {id}");
             }
             CheckCancelingTask(task);
             if (queue.Tasks.Any(p => p.Id == task.Id))
@@ -189,15 +189,15 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (task.Status == TaskStatus.Cancel)
             {
-                throw new Exception("ID为{id}的任务已被取消");
+                throw new Exception("Tác vụ có ID {id} đã bị hủy");
             }
             if (task.Status == TaskStatus.Done)
             {
-                throw new Exception("ID为{id}的任务已完成");
+                throw new Exception("Tác vụ có ID {id} đã hoàn thành");
             }
             if (task.Status == TaskStatus.Error)
             {
-                throw new Exception("ID为{id}的任务已完成并出现错误");
+                throw new Exception("Tác vụ có ID {id} đã hoàn thành với lỗi");
             }
         }
 
@@ -242,7 +242,7 @@ namespace SimpleFFmpegGUI.Manager
             TaskInfo task = db.Tasks.Find(id);
             if (task == null)
             {
-                throw new ArgumentException($"找不到ID为{id}的任务");
+                throw new ArgumentException($"Không thể tìm thấy tác vụ có ID {id}");
             }
             if (queue.Tasks.Any(p => p.Id == task.Id))
             {
