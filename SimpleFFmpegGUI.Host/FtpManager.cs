@@ -47,7 +47,7 @@ namespace SimpleFFmpegGUI
         {
             if (ftpServerHost == null)
             {
-                throw new NullReferenceException("请先初始化");
+                throw new NullReferenceException("Vui lòng khởi tạo nó trước");
             }
             return ftpServerHost.StartAsync(CancellationToken.None);
         }
@@ -56,7 +56,7 @@ namespace SimpleFFmpegGUI
         {
             if (ftpServerHost == null)
             {
-                throw new NullReferenceException("请先初始化");
+                throw new NullReferenceException("Vui lòng khởi tạo nó trước");
             }
             return ftpServerHost.StopAsync(CancellationToken.None);
         }
