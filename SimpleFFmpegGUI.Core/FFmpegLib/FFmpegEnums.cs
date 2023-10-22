@@ -3,7 +3,7 @@
     public class FFmpegEnums
     {
         /// <summary>
-        /// X264、X265中的速度预设
+        /// Speed preset trong X264 và X265
         /// </summary>
         public readonly static string[] Presets = new[] {
             "veryslow",
@@ -18,7 +18,7 @@
         };
 
         /// <summary>
-        /// 支持的像素格式
+        /// Các định dạng màu được hỗ trợ (8bit-10bit)
         /// </summary>
         public readonly static string[] PixelFormats = new[] {
             "yuv420p",
