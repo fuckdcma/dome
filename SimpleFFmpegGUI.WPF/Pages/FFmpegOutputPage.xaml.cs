@@ -115,11 +115,11 @@ namespace SimpleFFmpegGUI.WPF.Pages
             try
             {
                 Clipboard.SetText(string.Join(Environment.NewLine,ViewModel.Outputs.Select(p=>p.Message)));
-                this.CreateMessage().QueueSuccess("已复制内容到剪贴板");
+                this.CreateMessage().QueueSuccess("Các nội dung đã được sao chép vào khay nhớ tạm");
             }
             catch (Exception ex)
             {
-                this.CreateMessage().QueueError("复制内容失败", ex);
+                this.CreateMessage().QueueError("Không sao chép được nội dung", ex);
             }
         }
 
@@ -128,11 +128,11 @@ namespace SimpleFFmpegGUI.WPF.Pages
             try
             {
                 Clipboard.SetText((sender as TextBlock).Text);
-                this.CreateMessage().QueueSuccess("已复制内容到剪贴板");
+                this.CreateMessage().QueueSuccess("Các nội dung đã được sao chép vào khay nhớ tạm");
             }
             catch(Exception ex)
             {
-                this.CreateMessage().QueueError("复制内容失败", ex);
+                this.CreateMessage().QueueError("Không sao chép được nội dung", ex);
             }
         }
     }
