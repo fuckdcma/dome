@@ -23,11 +23,11 @@
             <ui:AppBarButton
                 Click="ClearAllButton_Click"
                 Icon="Clear"
-                Label="清空" />
+                Label="Dọn dẹp" />
             <ui:AppBarButton
                 Click="CopyAllButton_Click"
                 Icon="Copy"
-                Label="复制全部内容" />
+                Label="Copy tất cả" />
 
 
         </ui:CommandBar>
