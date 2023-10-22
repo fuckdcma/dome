@@ -15,7 +15,7 @@ namespace SimpleFFmpegGUI.Manager
         private bool cancelQueue = false;
 
         /// <summary>
-        /// 用于判断是否为有效计划的队列计划ID
+        /// ID kế hoạch hàng đợi được sử dụng để xác định xem đó có phải là gói hợp lệ hay không
         /// </summary>
         private int currentScheduleID = 0;
 
@@ -28,42 +28,42 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 任务发生改变
+        /// Thay đổi task
         /// </summary>
         public event NotifyCollectionChangedEventHandler TaskManagersChanged;
 
         /// <summary>
-        /// 主队列任务
+        /// Hàng đợi Task
         /// </summary>
         public FFmpegManager MainQueueManager => Managers.FirstOrDefault(p => p.Task == MainQueueTask);
 
         /// <summary>
-        /// 主队列的Task
+        /// Tác vụ cho hàng đợi chính
         /// </summary>
         public TaskInfo MainQueueTask { get; private set; }
 
         /// <summary>
-        /// 所有任务
+        /// Tất cả task
         /// </summary>
         public IReadOnlyList<FFmpegManager> Managers => taskProcessManagers.AsReadOnly();
 
         /// <summary>
-        /// 电源性能管理
+        /// Quản lý hiệu suất năng lượng
         /// </summary>
         public PowerManager PowerManager { get; } = new PowerManager();
 
         /// <summary>
-        /// 独立任务
+        /// Nhiệm vụ độc lập
         /// </summary>
         public IEnumerable<TaskInfo> StandaloneTasks => Managers.Where(p => p.Task != MainQueueTask).Select(p => p.Task);
 
         /// <summary>
-        /// 所有任务
+        /// Tất cả nhiệm vụ
         /// </summary>
         public IEnumerable<TaskInfo> Tasks => Managers.Select(p => p.Task);
 
         /// <summary>
-        /// 取消主队列
+        /// Hủy hàng đợi chính
         /// </summary>
         public void Cancel()
         {
@@ -74,7 +74,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 取消主队列
+        /// Hủy hàng đợi chính
         /// </summary>
         public Task CancelAsync()
         {
@@ -85,7 +85,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 取消计划的队列
+        /// Hủy hàng đợi đã lên lịch
         /// </summary>
         public void CancelQueueSchedule()
         {
@@ -105,7 +105,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 计划一个未来某个时刻开始队列的任务
+        /// Lập kế hoạch cho một nhiệm vụ để bắt đầu hàng đợi tại một số thời điểm trong tương lai
         /// </summary>
         /// <param name="time"></param>
         /// <exception cref="ArgumentException"></exception>
@@ -113,7 +113,7 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (time <= DateTime.Now)
             {
-                throw new ArgumentException("计划的时间早于当前时间");
+                throw new ArgumentException("Thời gian dự kiến sớm hơn thời gian hiện tại");
             }
             currentScheduleID++;
             scheduleTime = time;
@@ -126,18 +126,18 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 开始队列
+        /// Bắt đầu hàng đợi
         /// </summary>
         public async void StartQueue()
         {
             if (running)
             {
-                logger.Warn("队列正在运行，开始队列失败");
+                logger.Warn("Hàng đợi đang chạy và hàng đợi bắt đầu không thành công");
                 return;
             }
             running = true;
             scheduleTime = null;
-            logger.Info("开始队列");
+            logger.Info("Bắt đầu hàng đợi");
             using FFmpegDbContext db = FFmpegDbContext.GetNew();
             List<TaskInfo> tasks;
             while (!cancelQueue && GetQueueTasks(db).Any())
@@ -151,7 +151,7 @@ namespace SimpleFFmpegGUI.Manager
             running = false;
             bool cancelManually = cancelQueue;
             cancelQueue = false;
-            logger.Info("队列完成");
+            logger.Info("Hàng đợi hoàn tất");
             if (!cancelManually && PowerManager.ShutdownAfterQueueFinished)
             {
                 PowerManager.Shutdown();
@@ -159,7 +159,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 开始独立任务
+        /// Bắt đầu một nhiệm vụ độc lập
         /// </summary>
         /// <param name="id"></param>
         /// <exception cref="Exception"></exception>
@@ -169,23 +169,23 @@ namespace SimpleFFmpegGUI.Manager
             var task = db.Tasks.Find(id);
             if (task == null)
             {
-                throw new Exception("找不到ID为" + id + "的任务");
+                throw new Exception("Không thể tìm thấy tác vụ có ID " + id + " ");
             }
             if (task.Status != TaskStatus.Queue)
             {
-                throw new Exception("任务的状态不正确，不可开始任务");
+                throw new Exception("Trạng thái của tác vụ không chính xác và không thể bắt đầu tác vụ");
             }
             if (Tasks.Any(p => p.Id == task.Id))
             {
-                throw new Exception("任务正在进行中，但状态不是正在处理中");
+                throw new Exception("Tác vụ đang được tiến hành, nhưng trạng thái không phải là Đang xử lý");
             }
-            logger.Info(task, "开始独立任务");
+            logger.Info(task, "Bắt đầu một nhiệm vụ độc lập");
             await ProcessTaskAsync(db, task, false);
-            logger.Info(task, "独立任务完成");
+            logger.Info(task, "Hoàn thành nhiệm vụ độc lập");
         }
 
         /// <summary>
-        /// 暂停主任务
+        /// Tạm dừng nhiệm vụ chính
         /// </summary>
         public void SuspendMainQueue()
         {
@@ -207,7 +207,7 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (!Managers.Any(p => p.Task == MainQueueTask))
             {
-                throw new Exception("主队列未运行或当前任务正在准备中");
+                throw new Exception("Hàng đợi chính không chạy hoặc tác vụ hiện tại đang được chuẩn bị");
             }
         }
 
@@ -238,14 +238,14 @@ namespace SimpleFFmpegGUI.Manager
             {
                 if (task.Status != TaskStatus.Cancel)
                 {
-                    logger.Error(task, "运行错误：" + ex.ToString());
+                    logger.Error(task, "Chạy lỗi：" + ex.ToString());
                     task.Status = TaskStatus.Error;
                     task.Message = ex is FFmpegArgumentException ? 
-                        ex.Message : ffmpegManager.GetErrorMessage() ?? "运行错误，请查看日志";
+                        ex.Message : ffmpegManager.GetErrorMessage() ?? "Đối với các lỗi đang chạy, vui lòng kiểm tra nhật ký";
                 }
                 else
                 {
-                    logger.Warn(task, "任务被取消");
+                    logger.Warn(task, "Nhiệm vụ bị hủy");
                 }
             }
             finally
@@ -261,7 +261,7 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (!taskProcessManagers.Remove(ffmpegManager))
             {
-                throw new Exception("管理器未在管理器集合中");
+                throw new Exception("Người quản lý không có trong bộ sưu tập của người quản lý");
             }
             if (main)
             {
