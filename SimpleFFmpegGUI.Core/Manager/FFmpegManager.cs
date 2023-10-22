@@ -23,12 +23,12 @@ using TaskStatus = SimpleFFmpegGUI.Model.TaskStatus;
 namespace SimpleFFmpegGUI.Manager
 {
     /// <summary>
-    /// 单个FFmpeg任务管理器
+    /// Quản lý nhiệm vụ FFmpeg đơn lẻ
     /// </summary>
     public class FFmpegManager : INotifyPropertyChanged
     {
         /// <summary>
-        /// 错误信息的识别正则
+        /// Dấu hiệu nhận dạng lỗi trong biểu thức chính quy
         /// </summary>
         private static readonly Regex[] ErrorMessageRegexs = new[]
         {
@@ -40,53 +40,53 @@ namespace SimpleFFmpegGUI.Manager
         };
 
         /// <summary>
-        /// 用于识别PSNR的正则
+        /// Biểu thức chính quy để nhận dạng PSNR
         /// </summary>
         private static readonly Regex rPSNR = new Regex(@"PSNR (([yuvaverageminmax]+:[0-9\. ]+)+)", RegexOptions.Compiled);
 
         /// <summary>
-        /// 用于识别SSIM的正则
+        /// Biểu thức chính quy để nhận dạng SSIM
         /// </summary>
         private static readonly Regex rSSIM = new Regex(@"SSIM ([YUVAll]+:[0-9\.\(\) ]+)+", RegexOptions.Compiled);
 
         /// <summary>
-        /// 用于识别VMAF的正则
+        /// Biểu thức chính quy để nhận dạng VMAF
         /// </summary>
         private static readonly Regex rVMAF = new Regex(@"VMAF score: [0-9\.]+", RegexOptions.Compiled);
 
 
         /// <summary>
-        /// 当前任务
+        /// Task hiện tại
         /// </summary>
         private readonly TaskInfo task;
 
         /// <summary>
-        /// 用于取消任务的token源
+        /// Token nguồn để hủy task
         /// </summary>
         private CancellationTokenSource cancel;
 
         /// <summary>
-        /// 任务是否已经开始运行或已经完成
+        /// Trạng thái nhiệm vụ đã bắt đầu chạy hoặc đã hoàn thành
         /// </summary>
         private bool hasRun = false;
 
         /// <summary>
-        /// 最后一个输出
+        /// Kết quả đầu ra cuối cùng
         /// </summary>
         private string lastOutput;
 
         /// <summary>
-        /// 日志
+        /// Log
         /// </summary>
         private Logger logger = new Logger();
 
         /// <summary>
-        /// 任务是否被暂停
+        /// Trạng thái nhiệm vụ đã tạm dừng hay chưa
         /// </summary>
         private bool paused;
 
         /// <summary>
-        /// 暂停时，暂停开始的时间
+        /// Khi tạm dừng, thời gian bắt đầu tạm dừng
         /// </summary>
         private DateTime pauseStartTime;
         private FFmpegProcess process;
@@ -97,7 +97,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 进程输出事件
+        /// Sự kiện đầu ra quy trình
         /// </summary>
         public event EventHandler<FFmpegOutputEventArgs> FFmpegOutput;
 
@@ -106,17 +106,17 @@ namespace SimpleFFmpegGUI.Manager
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// 任务状态改变事件
+        /// Sự kiện thay đổi trạng thái task
         /// </summary>
         public event EventHandler StatusChanged;
 
         /// <summary>
-        /// 用于在任务结束后，保留该实例对应的FFmpeg进程
+        /// Sử dụng để giữ lại tiến trình FFmpeg tương ứng với phiên bản sau khi nhiệm vụ kết thúc
         /// </summary>
         public FFmpegProcess LastProcess { get; private set; }
 
         /// <summary>
-        /// 任务是否暂停中
+        /// Trạng thái nhiệm vụ có đang tạm dừng hay không?
         /// </summary>
         public bool Paused
         {
@@ -125,7 +125,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// FFmpeg进程
+        /// Tiến trình FFmpeg
         /// </summary>
         public FFmpegProcess Process
         {
@@ -138,16 +138,16 @@ namespace SimpleFFmpegGUI.Manager
             }
         }
         /// <summary>
-        /// 进度相关属性
+        /// Các thuộc tính liên quan đến tiến độ
         /// </summary>
         public ProgressDto Progress { get; private set; }
 
         /// <summary>
-        /// FFmpeg任务
+        /// FFmpeg Task
         /// </summary>
         public TaskInfo Task => task;
         /// <summary>
-        /// 测试输出参数是否合法
+        /// Kiểm tra tính hợp lệ của tham số đầu ra
         /// </summary>
         /// <param name="arguments"></param>
         /// <returns></returns>
@@ -157,21 +157,21 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 取消任务
+        /// Hủy task
         /// </summary>
         public void Cancel()
         {
-            logger.Info(task, "取消当前任务");
+            logger.Info(task, "Hủy Task hiện tại");
             task.Status = TaskStatus.Cancel;
             cancel.Cancel();
         }
 
         /// <summary>
-        /// 取消任务
+        /// Hủy task
         /// </summary>
         public async Task CancelAsync()
         {
-            logger.Info(task, "取消当前任务");
+            logger.Info(task, "Hủy nhiệm vụ hiện tại");
             task.Status = TaskStatus.Cancel;
             cancel.Cancel();
             try
@@ -185,7 +185,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 获取错误信息
+        /// Nhận thông tin lỗi
         /// </summary>
         /// <returns></returns>
         public string GetErrorMessage()
@@ -197,7 +197,7 @@ namespace SimpleFFmpegGUI.Manager
             return log?.Message;
         }
         /// <summary>
-        /// 获取当前状态
+        /// Nhận trạng thái hiện tại
         /// </summary>
         /// <returns></returns>
         public StatusDto GetStatus()
@@ -210,7 +210,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 暂停后恢复
+        /// Tiếp tục sau khi tạm dừng
         /// </summary>
         /// <exception cref="PlatformNotSupportedException"></exception>
         /// <exception cref="Exception"></exception>
@@ -218,21 +218,21 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                throw new PlatformNotSupportedException("暂停和恢复功能仅支持Windows");
+                throw new PlatformNotSupportedException("Chức năng tạm dừng và tiếp tục chỉ được hỗ trợ trên Windows");
             }
             if (Process == null)
             {
-                throw new Exception("进程还未启动，不可暂停或恢复");
+                throw new Exception("Tiến trình chưa được khởi động, không thể tạm dừng hoặc tiếp tục");
             }
             Paused = false;
             Progress.PauseTime += DateTime.Now - pauseStartTime;
-            logger.Info(task, "恢复队列");
+            logger.Info(task, "Tiếp tục hàng đợ");
             ProcessExtension.ResumeProcess(Process.Id);
             StatusChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
-        /// 执行任务
+        /// Thực hiện task
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
@@ -241,13 +241,13 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (hasRun)
             {
-                throw new Exception("一个实例只可运行一次");
+                throw new Exception("Một phiên chỉ có thể chạy một lần");
             }
             hasRun = true;
             cancel = new CancellationTokenSource();
             try
             {
-                logger.Info(task, "开始任务");
+                logger.Info(task, "Bắt đầu");
                 await (task.Type switch
                 {
                     TaskType.Code => RunCodeProcessAsync(cancel.Token),
@@ -255,7 +255,7 @@ namespace SimpleFFmpegGUI.Manager
                     TaskType.Compare => RunCompareProcessAsync(cancel.Token),
                     TaskType.Custom => RunCustomProcessAsync(cancel.Token),
                     TaskType.Concat => RunConcatProcessAsync(cancel.Token),
-                    _ => throw new NotSupportedException("不支持的任务类型：" + task.Type),
+                    _ => throw new NotSupportedException("Loại Task không được hỗ trợ：" + task.Type),
                 });
 
 
@@ -267,11 +267,11 @@ namespace SimpleFFmpegGUI.Manager
                     }
                     catch (Exception ex)
                     {
-                        logger.Error(task, "修改输出文件的修改时间失败：" + ex.Message);
+                        logger.Error(task, "Thay đổi thời gian sửa đổi của tệp đầu ra thất bại：" + ex.Message);
                     }
                 }
 
-                logger.Info(task, "完成任务");
+                logger.Info(task, "Task Done!");
             }
             finally
             {
@@ -281,7 +281,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 暂停任务
+        /// Tạm dừng task
         /// </summary>
         /// <exception cref="PlatformNotSupportedException"></exception>
         /// <exception cref="Exception"></exception>
@@ -289,21 +289,21 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                throw new PlatformNotSupportedException("暂停和恢复功能仅支持Windows");
+                throw new PlatformNotSupportedException("Chức năng tạm dừng và tiếp tục chỉ được hỗ trợ trên Windows");
             }
             if (Process == null)
             {
-                throw new Exception("进程还未启动或该任务不允许暂停");
+                throw new Exception("Tiến trình chưa được khởi động hoặc Task này không cho phép tạm dừng");
             }
             Paused = true;
-            logger.Info(task, "暂停队列");
+            logger.Info(task, "Tạm dừng hàng đợi");
             pauseStartTime = DateTime.Now;
             ProcessExtension.SuspendProcess(Process.Id);
             StatusChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
-        /// 获取视频的长度
+        /// Get độ dài của video
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
@@ -334,7 +334,7 @@ namespace SimpleFFmpegGUI.Manager
             {
                 if (realLength <= arg.From.Value)
                 {
-                    throw new FFmpegArgumentException("开始时间在视频结束时间之后");
+                    throw new FFmpegArgumentException("Thời gian bắt đầu sau thời gian kết thúc của video");
                 }
                 return realLength - arg.From.Value;
             }
@@ -343,7 +343,7 @@ namespace SimpleFFmpegGUI.Manager
                 TimeSpan endTime = (arg.From.HasValue ? arg.From.Value : TimeSpan.Zero) + arg.Duration.Value;
                 if (endTime > realLength)
                 {
-                    throw new FFmpegArgumentException("裁剪后的结束时间在视频结束时间之后");
+                    throw new FFmpegArgumentException("Thời gian bắt đầu sau thời gian kết thúc của video có nghĩa là thời gian bắt đầu sau khi video đã kết thúc.");
                 }
                 return arg.Duration.Value;
             }
@@ -351,16 +351,16 @@ namespace SimpleFFmpegGUI.Manager
             {
                 if (arg.To.Value > realLength)
                 {
-                    throw new FFmpegArgumentException("裁剪后的结束时间在视频结束时间之后");
+                    throw new FFmpegArgumentException("Thời gian bắt đầu sau thời gian kết thúc của video có nghĩa là thời gian bắt đầu sau khi video đã kết thúc.");
                 }
                 return arg.To.Value - start;
             }
 
-            throw new Exception("未知情况");
+            throw new Exception("Tình huống không xác định");
         }
 
         /// <summary>
-        /// 获取进度信息
+        /// lấy thông tin tiến độ
         /// </summary>
         /// <param name="onlyCalcFirstVideoDuration"></param>
         /// <returns></returns>
@@ -381,7 +381,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// FFmpeg进程输出
+        /// Đầu ra quá trình của FFmpeg
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -394,7 +394,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 执行任务
+        /// Thực hiện task
         /// </summary>
         /// <param name="arguments"></param>
         /// <param name="desc"></param>
@@ -405,10 +405,10 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (cancellationToken.IsCancellationRequested)
             {
-                logger.Info(task, "进程启动前就被要求取消");
+                logger.Info(task, "Yêu cầu hủy trước khi khởi động quá trình");
                 return;
             }
-            logger.Info(task, "FFmpeg参数为：" + arguments);
+            logger.Info(task, "Tham số của FFmpeg：" + arguments);
             task.FFmpegArguments = string.IsNullOrEmpty(task.FFmpegArguments) ? arguments : task.FFmpegArguments + ";" + arguments;
             if (Progress != null)
             {
@@ -429,7 +429,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 执行编码任务
+        /// Thực hiện nhiệm vụ mã hóa
         /// </summary>
         /// <param name="tempDir"></param>
         /// <param name="cancellationToken"></param>
@@ -439,9 +439,9 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (task.Inputs.Count != 1)
             {
-                throw new ArgumentException("普通编码，输入文件必须为1个");
+                throw new ArgumentException("Mã hóa thông thường, tệp đầu vào phải là 1");
             }
-            //处理图像序列名
+            //Xử lý tên chuỗi hình ảnh
             if (task.Inputs.Count == 1 && task.Inputs[0].Image2)
             {
                 string seq = GetSequence(task.Inputs[0].FilePath);
@@ -455,7 +455,7 @@ namespace SimpleFFmpegGUI.Manager
             if (task.Arguments.Video == null || !task.Arguments.Video.TwoPass)
             {
                 Progress = GetProgress();
-                message = $"正在转码：{Path.GetFileName(task.Inputs[0].FilePath)}";
+                message = $"Chuyển mã：{Path.GetFileName(task.Inputs[0].FilePath)}";
                 string arg = ArgumentsGenerator.GetArguments(task, 0);
                 await RunAsync(arg, message, cancellationToken);
             }
@@ -470,12 +470,12 @@ namespace SimpleFFmpegGUI.Manager
                 Progress = GetProgress();
                 Progress.VideoLength *= 2;
 
-                message = $"正在转码（Pass=1）：{Path.GetFileName(task.Inputs[0].FilePath)}";
+                message = $"Chuyển mã（Pass=1）：{Path.GetFileName(task.Inputs[0].FilePath)}";
                 string arg = ArgumentsGenerator.GetArguments(task, 1, RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "NUL" : "/dev/null");
                 await RunAsync(arg, message, cancellationToken, tempDirectory);
 
                 Progress.BasePercent = 0.5;
-                message = $"正在转码（Pass=2）：{Path.GetFileName(task.Inputs[0].FilePath)}";
+                message = $"Chuyển mã（Pass=2）：{Path.GetFileName(task.Inputs[0].FilePath)}";
                 arg = ArgumentsGenerator.GetArguments(task, 2);
                 await RunAsync(arg, message, cancellationToken, tempDirectory);
             }
@@ -483,7 +483,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 执行音视频合并任务
+        /// Thực hiện tác vụ hợp nhất âm thanh-video
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
@@ -492,17 +492,17 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (task.Inputs.Count != 2)
             {
-                throw new ArgumentException("合并音视频操作，输入文件必须为2个");
+                throw new ArgumentException("Để kết hợp các thao tác âm thanh và video, tệp đầu vào phải là hai");
             }
             var video = FFProbe.Analyse(task.Inputs[0].FilePath);
             var audio = FFProbe.Analyse(task.Inputs[1].FilePath);
             if (video.VideoStreams.Count == 0)
             {
-                throw new ArgumentException("输入1不含视频");
+                throw new ArgumentException("Stream 1 không chứa video");
             }
             if (audio.AudioStreams.Count == 0)
             {
-                throw new ArgumentException("输入2不含音频");
+                throw new ArgumentException("Stream 2 không chứa âm thanh");
             }
 
             Progress = GetProgress(true);
@@ -512,11 +512,11 @@ namespace SimpleFFmpegGUI.Manager
                 s => (video.AudioStreams.Count != 0 || audio.VideoStreams.Count != 0) ? s.Map(0, StreamChannel.Video, 0).Map(0, StreamChannel.Audio, 0) : s);
             string arg = ArgumentsGenerator.GetArguments(task.Inputs, outputArgs, task.RealOutput);
 
-            await RunAsync(arg, "正在合并音视频", cancellationToken);
+            await RunAsync(arg, "Hợp nhất âm thanh và video", cancellationToken);
         }
 
         /// <summary>
-        /// 执行视频对比任务
+        /// Thực hiện các tác vụ so sánh video
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
@@ -526,17 +526,17 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (task.Inputs.Count != 2)
             {
-                throw new FFmpegArgumentException("视频比较，输入文件必须为2个");
+                throw new FFmpegArgumentException("Để so sánh video, Pải có 2 stream");
             }
             var v1 = FFProbe.Analyse(task.Inputs[0].FilePath);
             var v2 = FFProbe.Analyse(task.Inputs[1].FilePath);
             if (v1.VideoStreams.Count == 0)
             {
-                throw new FFmpegArgumentException("输入1不含视频");
+                throw new FFmpegArgumentException("Stream 1 không chứa video");
             }
             if (v2.VideoStreams.Count == 0)
             {
-                throw new FFmpegArgumentException("输入2不含视频");
+                throw new FFmpegArgumentException("Stream 2 không chứa video");
             }
             Progress = GetProgress(true);
             string argument = "-lavfi \"ssim;[0:v][1:v]psnr\" -f null -";
@@ -553,10 +553,10 @@ namespace SimpleFFmpegGUI.Manager
             string vmaf = null;
             try
             {
-                await RunAsync(arg, $"正在对比 {Path.GetFileName(task.Inputs[0].FilePath)} 和 {Path.GetFileName(task.Inputs[1].FilePath)}", cancellationToken);
+                await RunAsync(arg, $"So sánh {Path.GetFileName(task.Inputs[0].FilePath)} Và {Path.GetFileName(task.Inputs[1].FilePath)}", cancellationToken);
                 if (ssim == null || psnr == null)
                 {
-                    throw new Exception("对比视频失败，未识别到对比结果");
+                    throw new Exception("Video so sánh không thành công, không có kết quả so sánh nào được ghi");
                 }
                 task.Message = ssim + Environment.NewLine + psnr + (vmaf == null ? "" : (Environment.NewLine + vmaf));
             }
@@ -575,25 +575,25 @@ namespace SimpleFFmpegGUI.Manager
                 {
                     var match = rSSIM.Match(e.Data);
                     ssim = match.Value;
-                    logger.Info(task, "对比结果（SSIM）：" + match.Value);
+                    logger.Info(task, "So sánh kết quả（SSIM）：" + match.Value);
                 }
                 if (rPSNR.IsMatch(e.Data))
                 {
                     var match = rPSNR.Match(e.Data);
                     psnr = match.Value;
-                    logger.Info(task, "对比结果（PSNR）：" + match.Value);
+                    logger.Info(task, "So sánh kết quả（PSNR）：" + match.Value);
                 }
                 if (rVMAF.IsMatch(e.Data))
                 {
                     var match = rVMAF.Match(e.Data);
                     vmaf = match.Value;
-                    logger.Info(task, "对比结果（VMAF）：" + match.Value);
+                    logger.Info(task, "So sánh kết quả（VMAF）：" + match.Value);
                 }
             }
         }
 
         /// <summary>
-        /// 执行视频拼接任务
+        /// Thực hiện các tác vụ ghép video
         /// </summary>
         /// <param name="tempDir"></param>
         /// <param name="cancellationToken"></param>
@@ -604,9 +604,9 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (task.Inputs.Count < 2)
             {
-                throw new ArgumentException("拼接视频，输入文件必须为2个或更多");
+                throw new ArgumentException("Để ghép video, các tệp đầu vào phải từ 2 trở lên");
             }
-            string message = $"正在拼接：{task.Inputs.Count}个文件";
+            string message = $"Nối：{task.Inputs.Count} tập tin";
 
             string tempPath = GetTempFileName("concat") + ".txt";
             using (var stream = File.CreateText(tempPath))
@@ -631,7 +631,7 @@ namespace SimpleFFmpegGUI.Manager
         }
 
         /// <summary>
-        /// 执行自定义任务
+        /// Thực hiện các tác vụ tùy chỉnh
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
