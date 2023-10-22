@@ -34,11 +34,11 @@ namespace SimpleFFmpegGUI
             };
             string type = e.Log.Type switch
             {
-                'E' => "错误",
-                'D' => "调试",
-                'I' => "信息",
-                'W' => "警告",
-                'O' => "输出",
+                'E' => "Lỗi",
+                'D' => "Gỡ lỗi",
+                'I' => "Thông tin",
+                'W' => "Cảnh báo",
+                'O' => "Đầu ra",
                 _ => e.Log.Type.ToString().PadLeft(2)
             };
             string time = e.Log.Time.ToString("yyyy-MM-dd HH:mm:ss");
