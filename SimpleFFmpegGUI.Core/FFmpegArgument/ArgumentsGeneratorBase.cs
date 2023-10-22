@@ -7,12 +7,12 @@ namespace SimpleFFmpegGUI.FFmpegArgument
     public abstract class ArgumentsGeneratorBase
     {
         /// <summary>
-        /// 单个参数对的集合
+        /// Tập hợp các cặp tham số đơn
         /// </summary>
         protected List<FFmpegArgumentItem> arguments = new List<FFmpegArgumentItem>();
 
         /// <summary>
-        /// 额外参数
+        /// Tham số bổ sung
         /// </summary>
         /// <returns></returns>
         public virtual IEnumerable<FFmpegArgumentItem> ExtraArguments()
@@ -21,7 +21,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 将<see cref="arguments"/>中的参数连接成为字符串
+        /// Sắp<see cref="arguments"/>kết nối các tham số trong chuỗi
         /// </summary>
         /// <returns></returns>
         public virtual string GetArguments()
