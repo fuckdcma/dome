@@ -25,7 +25,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (mb < 0)
             {
-                throw new FFmpegArgumentException("平均码率超出范围");
+                throw new FFmpegArgumentException("Chỉ số bitrate trung bình vượt quá phạm vi");
             }
             return new FFmpegArgumentItem("rc", "1", "svtav1-params", ':')
             {
@@ -37,26 +37,26 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (mb < 0)
             {
-                throw new FFmpegArgumentException("最大码率超出范围");
+                throw new FFmpegArgumentException("Chỉ số bitrate tối đa vượt quá phạm vi");
             }
             return new FFmpegArgumentItem("mbr", Convert.ToInt32(mb * 1000).ToString(), "svtav1-params", ':');
         }
         public override FFmpegArgumentItem BufferSize(double mb)
         {
-            throw new FFmpegArgumentException("SVTAV1编译器不支持该参数：" + nameof(BufferSize));
+            throw new FFmpegArgumentException("Trình biên dịch SVTAV1 không hỗ trợ tham số này：" + nameof(BufferSize));
         }
         public override FFmpegArgumentItem FrameRate(double fps)
         {
             if (fps < 0)
             {
-                throw new FFmpegArgumentException("帧速率大小超出范围");
+                throw new FFmpegArgumentException("Khung số hình mỗi giây vượt quá phạm vi cho phép");
             }
             return new FFmpegArgumentItem("fps", fps.ToString(), "svtav1-params", ':');
         }
 
         public override FFmpegArgumentItem Pass(int pass)
         {
-            throw new FFmpegArgumentException("SVTAV1暂不支持2Pass");
+            throw new FFmpegArgumentException("Hiện tại, SVTAV1 không hỗ trợ chế độ 2-Pass");
         }
     }
 
