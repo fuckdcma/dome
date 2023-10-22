@@ -48,7 +48,7 @@ namespace SimpleFFmpegGUI.WPF.Pages
         public PresetsPageViewModel ViewModel { get; set; }
         private async void DeleteAllButton_Click(object sender, RoutedEventArgs e)
         {
-            if (await CommonDialog.ShowYesNoDialogAsync("删除预设", $"是否删除所有类型的所有预设？"))
+            if (await CommonDialog.ShowYesNoDialogAsync("Xóa giá trị đặt trước", $"Xóa tất cả các cài đặt trước của tất cả các loại? "))
             {
                 IsEnabled = false;
                 try
@@ -58,7 +58,7 @@ namespace SimpleFFmpegGUI.WPF.Pages
                 }
                 catch (Exception ex)
                 {
-                    await CommonDialog.ShowErrorDialogAsync(ex, "删除失败");
+                    await CommonDialog.ShowErrorDialogAsync(ex, "Xóa không thành công");
                 }
                 finally
                 {
@@ -70,7 +70,7 @@ namespace SimpleFFmpegGUI.WPF.Pages
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             var preset = (sender as Button).DataContext as CodePreset;
-            if (await CommonDialog.ShowYesNoDialogAsync("删除预设", $"是否删除“{preset.Name}”？"))
+            if (await CommonDialog.ShowYesNoDialogAsync("Xóa cài đặt trước", $"Bạn có muốn xóa không“{preset.Name}”？"))
             {
                 ViewModel.DeletePreset(preset);
             }
@@ -78,19 +78,19 @@ namespace SimpleFFmpegGUI.WPF.Pages
 
         private void ExportButton_Click(object sender, RoutedEventArgs e)
         {
-            var path = new FileFilterCollection().Add("配置文件", "json").CreateSaveFileDialog().SetParent(this.GetWindow()).SetDefault("FFmpeg工具箱 预设.json").GetFilePath();
+            var path = new FileFilterCollection().Add("Tệp cấu hình", "json").CreateSaveFileDialog().SetParent(this.GetWindow()).SetDefault("Cài đặt trước hộp công cụ FFmpeg.json").GetFilePath();
             if (path != null)
 
             {
                 var json = PresetManager.Export();
                 File.WriteAllText(path, json, new UTF8Encoding());
-                this.CreateMessage().QueueSuccess("导出成功");
+                this.CreateMessage().QueueSuccess("Export thành công");
             }
         }
 
         private async void ImportButton_Click(object sender, RoutedEventArgs e)
         {
-            var path = new FileFilterCollection().Add("配置文件", "json").CreateOpenFileDialog().SetParent(this.GetWindow()).GetFilePath();
+            var path = new FileFilterCollection().Add("Tệp cấu hình", "json").CreateOpenFileDialog().SetParent(this.GetWindow()).GetFilePath();
             if (path != null)
 
             {
@@ -98,11 +98,11 @@ namespace SimpleFFmpegGUI.WPF.Pages
                 {
                     PresetManager.Import(File.ReadAllText(path, new UTF8Encoding()));
                     ViewModel.FillPresets();
-                    this.CreateMessage().QueueSuccess("导入成功，同名预设已被更新");
+                    this.CreateMessage().QueueSuccess("Nhập thành công, cài đặt trước cùng tên đã được cập nhật");
                 }
                 catch (Exception ex)
                 {
-                    await CommonDialog.ShowErrorDialogAsync(ex, "导入失败");
+                    await CommonDialog.ShowErrorDialogAsync(ex, "Import không thành công");
                 }
             }
         }
@@ -140,7 +140,7 @@ namespace SimpleFFmpegGUI.WPF.Pages
             }
             catch (Exception ex)
             {
-                this.CreateMessage().QueueError("更新预设失败", ex);
+                this.CreateMessage().QueueError("Không thể cập nhật cài đặt trước", ex);
             }
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
