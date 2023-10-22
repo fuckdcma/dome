@@ -149,9 +149,9 @@ namespace SimpleFFmpegGUI
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("保存日志失败");
+                Debug.WriteLine("Không thể lưu nhật ký");
                 Debug.WriteLine(ex);
-                LogSaveFailed?.Invoke(this, new ExceptionEventArgs(ex, "保存日志失败"));
+                LogSaveFailed?.Invoke(this, new ExceptionEventArgs(ex, "Không thể lưu nhật ký"));
             }
         }
         private void StartTimer()
