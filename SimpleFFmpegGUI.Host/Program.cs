@@ -35,8 +35,8 @@ namespace SimpleFFmpegGUI
             catch (Exception ex)
             {
                 AppLog.Error(ex);
-                Console.WriteLine("数据库迁移失败：" + ex);
-                Console.WriteLine("程序终止");
+                Console.WriteLine("Di chuyển cơ sở dữ liệu không thành công：" + ex);
+                Console.WriteLine("Chấm dứt chương trình");
                 Console.ReadKey();
                 Environment.Exit(-1);
                 return null;
@@ -77,18 +77,18 @@ namespace SimpleFFmpegGUI
                      {
                          if (o.PipeName != null)
                          {
-                             Console.WriteLine($"管道名设置为： {o.PipeName}");
+                             Console.WriteLine($"Tên pipe được đặt thành： {o.PipeName}");
                              pipeName = o.PipeName;
                          }
                          else
                          {
-                             Console.WriteLine($"管道名未设置，默认为： {DefaultPipeName}");
+                             Console.WriteLine($"Tên pipe không được đặt và mặc định là： {DefaultPipeName}");
                          }
                          if (o.RegisterStartup)
                          {
                              if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                              {
-                                 throw new PlatformNotSupportedException("开机自启仅支持Windows");
+                                 throw new PlatformNotSupportedException("Khởi động chỉ được hỗ trợ cho Windows");
                              }
                              if (FzLib.Program.Startup.IsRegistryKeyExist() != FzLib.IO.ShortcutStatus.Exist)
                              {
@@ -103,13 +103,13 @@ namespace SimpleFFmpegGUI
                                      args.Add(o.PipeName);
                                  }
                                  FzLib.Program.Startup.CreateRegistryKey(string.Join(' ', args));
-                                 Console.WriteLine("已注册开机自启，参数为" + string.Join(' ', args));
+                                 Console.WriteLine("Đã đăng ký để tự khởi động, tham số là" + string.Join(' ', args));
                              }
                              else
                              {
-                                 Console.WriteLine("已经是开机自启，无需注册");
+                                 Console.WriteLine("Nó đã là một khởi động tự khởi động, không cần đăng ký");
                              }
-                             Console.WriteLine("按任意键退出");
+                             Console.WriteLine("Nhấn phím bất kỳ để thoát");
                              Console.ReadKey();
                              Environment.Exit(0);
                          }
@@ -117,25 +117,25 @@ namespace SimpleFFmpegGUI
                          {
                              if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                              {
-                                 throw new PlatformNotSupportedException("开机自启仅支持Windows");
+                                 throw new PlatformNotSupportedException("Tự động khởi động chỉ hỗ trợ Windows");
                              }
                              if (FzLib.Program.Startup.IsRegistryKeyExist() == FzLib.IO.ShortcutStatus.Exist)
                              {
                                  FzLib.Program.Startup.DeleteRegistryKey();
-                                 Console.WriteLine("已取消开机自启");
+                                 Console.WriteLine("Khởi động bị hủy");
                              }
                              else
                              {
-                                 Console.WriteLine("未注册开机自启，无需取消");
+                                 Console.WriteLine("Khởi động chưa đăng ký, không cần hủy");
                              }
-                             Console.WriteLine("按任意键退出");
+                             Console.WriteLine("Nhấn phím bất kỳ để thoát");
                              Console.ReadKey();
                              Environment.Exit(0);
                          }
                          if (o.WorkingDirectoryHere)
                          {
                              FzLib.Program.App.SetWorkingDirectoryToAppPath();
-                             Console.WriteLine("工作目录设置为程序目录：" + FzLib.Program.App.ProgramDirectoryPath);
+                             Console.WriteLine("Thư mục làm việc được đặt thành thư mục chương trình：" + FzLib.Program.App.ProgramDirectoryPath);
                          }
                      });
             ConsoleLogger.StartListen();
@@ -144,11 +144,11 @@ namespace SimpleFFmpegGUI
 
         private static void InitializeLogs()
         {
-            //本地日志
+            //Nhật ký cục bộ
             AppLog = LogManager.GetLogger(typeof(Program));
-            AppLog.Info("程序启动");
+            AppLog.Info("Chương trình bắt đầu");
 
-            //数据库日志
+            //Nhật ký cơ sở dữ liệu
             Logger.Log += Logger_Log;
             Logger.LogSaveFailed += Logger_LogSaveFailed;
             void Logger_Log(object sender, LogEventArgs e)
@@ -169,9 +169,9 @@ namespace SimpleFFmpegGUI
         private static void UnhandledException_UnhandledExceptionCatched(object sender, FzLib.Program.Runtime.UnhandledExceptionEventArgs e)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"程序发生未捕获的异常，停止运行：\r\n {e.Exception}");
+            Console.WriteLine($"Chương trình ngừng chạy với lỗi không xác định：\r\n {e.Exception}");
             AppLog.Error(e.Exception);
-            Console.WriteLine("按任意键退出");
+            Console.WriteLine("Nhấn phím bất kỳ để thoát");
             Console.ReadKey();
         }
     }
