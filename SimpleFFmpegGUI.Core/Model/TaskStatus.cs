@@ -4,19 +4,19 @@ namespace SimpleFFmpegGUI.Model
 {
     public enum TaskStatus
     {
-        [Description("排队中")]
+        [Description("Xếp hàng")]
         Queue = 1,
 
-        [Description("处理中")]
+        [Description("Xử lý")]
         Processing = 2,
 
-        [Description("已完成")]
+        [Description("Hoàn thành")]
         Done = 3,
 
-        [Description("发生错误")]
+        [Description("Đã xảy ra lỗi")]
         Error = 4,
 
-        [Description("取消")]
+        [Description("Hủy")]
         Cancel = 5
     }
 }
