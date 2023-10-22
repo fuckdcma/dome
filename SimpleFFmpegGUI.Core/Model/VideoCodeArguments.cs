@@ -30,7 +30,7 @@ namespace SimpleFFmpegGUI.Model
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// 画面比例
+        /// Tỷ lệ hình ảnh
         /// </summary>
         public string AspectRatio
         {
@@ -39,7 +39,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 平均码率
+        /// Tốc độ bit trung bình
         /// </summary>
         public double? AverageBitrate
         {
@@ -48,7 +48,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 编码
+        /// mã hóa
         /// </summary>
         public string Code
         {
@@ -57,7 +57,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// CRF（视频目标质量）
+        /// CRF (Chất lượng mục tiêu video)
         /// </summary>
         public int? Crf
         {
@@ -66,7 +66,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 帧率
+        /// Tốc độ khung hình
         /// </summary>
         public double? Fps
         {
@@ -75,7 +75,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 最大码率
+        /// Tốc độ bit tối đa
         /// </summary>
         public double? MaxBitrate
         {
@@ -84,7 +84,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 最大码率缓冲倍率
+        /// Hệ số đệm tốc độ bit tối đa
         /// </summary>
         public double? MaxBitrateBuffer
         {
@@ -93,7 +93,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 像素格式
+        /// Định dạng pixel
         /// </summary>
         public string PixelFormat
         {
@@ -102,7 +102,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 编码速度或速度预设
+        /// Mã hóa tốc độ hoặc cài đặt trước tốc độ
         /// </summary>
         public int Preset
         {
@@ -111,7 +111,7 @@ namespace SimpleFFmpegGUI.Model
         } 
 
         /// <summary>
-        /// 视频尺寸（分辨率）
+        /// Kích thước video (độ phân giải)
         /// </summary>
         public string Size
         {
@@ -120,7 +120,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 是否二次编码
+        /// Mã hóa bậc hai có hay không
         /// </summary>
         public bool TwoPass
         {
