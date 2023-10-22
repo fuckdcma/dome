@@ -13,7 +13,7 @@ namespace SimpleFFmpegGUI.Model
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// 输出参数
+        /// Thông số đầu ra
         /// </summary>
         public OutputArguments Arguments
         {
@@ -22,7 +22,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 是否为该类中的默认预设
+        /// Cho dù đó là cài đặt trước mặc định trong lớp
         /// </summary>
         public bool Default
         {
@@ -31,7 +31,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 预设名
+        /// Tên đặt trước
         /// </summary>
         public string Name
         {
@@ -40,7 +40,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 预设对应的类型
+        /// Loại tương ứng với cài đặt trước
         /// </summary>
         public TaskType Type
         {
