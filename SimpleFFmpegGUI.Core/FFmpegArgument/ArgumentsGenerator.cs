@@ -6,16 +6,16 @@ using System.Text;
 namespace SimpleFFmpegGUI.FFmpegArgument
 {
     /// <summary>
-    /// FFmpeg命令参数生成器
+    /// Trình tạo tham số lệnh FFmpeg
     /// </summary>
     public static class ArgumentsGenerator
     {
         /// <summary>
-        /// 生成FFmpeg字符串参数
+        /// Tạo tham số chuỗi FFmpeg
         /// </summary>
-        /// <param name="task">任务</param>
-        /// <param name="pass">二次编码时，指定是第几次编码</param>
-        /// <param name="output">输出路径</param>
+        /// <param name="task">Nhiệm vụ</param>
+        /// <param name="pass">Khi mã hóa hai lần, hãy chỉ định lần mã hóa thứ mấy</param>
+        /// <param name="output">Đường dẫn đầu ra</param>
         /// <returns></returns>
         public static string GetArguments(TaskInfo task, int pass, string output = null)
         {
@@ -34,11 +34,11 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 生成FFmpeg字符串参数
+        /// Tạo tham số chuỗi FFmpeg
         /// </summary>
-        /// <param name="inputs">输入文件</param>
-        /// <param name="outputArguments">输出参数</param>
-        /// <param name="output">输出路径</param>
+        /// <param name="inputs">Tệp đầu vào</param>
+        /// <param name="outputArguments">Tham số đầu ra</param>
+        /// <param name="output">Đường dẫn đầu ra</param>
         /// <returns></returns>
         public static string GetArguments(IEnumerable<InputArguments> inputs, string outputArguments, string output = null)
         {
@@ -56,9 +56,9 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 生成输入的字符串参数
+        /// Tạo tham số chuỗi đầu vào
         /// </summary>
-        /// <param name="ia">输入文件</param>
+        /// <param name="ia">Tệp đầu vào</param>
         /// <returns></returns>
         public static string GetInputArguments(InputArguments ia)
         {
@@ -73,11 +73,11 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 生成输出部分的字符串参数
+        /// Tạo tham số chuỗi phần đầu ra
         /// </summary>
-        /// <param name="video">视频参数</param>
-        /// <param name="audio">音频参数</param>
-        /// <param name="stream">流参数</param>
+        /// <param name="video">Video</param>
+        /// <param name="audio">Audio</param>
+        /// <param name="stream">Số luồng</param>
         /// <returns></returns>
         public static string GetOutputArguments(
             Func<VideoArgumentsGenerator, VideoArgumentsGenerator> video,
@@ -95,10 +95,10 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 生成输出部分的字符串参数
+        /// Tạo tham số chuỗi phần đầu ra
         /// </summary>
-        /// <param name="oa">输出参数</param>
-        /// <param name="pass">二次编码时，指定是第几次编码</param>
+        /// <param name="oa">Tham số đầu ra</param>
+        /// <param name="pass">Khi mã hóa lần thứ hai, hãy chỉ định lần mã hóa thứ bao nhiêu</param>
         /// <returns></returns>
         /// <exception cref="FFmpegArgumentException"></exception>
         public static string GetOutputArguments(OutputArguments oa, int pass)
@@ -157,7 +157,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
             }
 
             string extra = "";
-            //取消指定format，因为一些不同的格式可能Format相同，指定后缀名也可以达到相同的效果
+            //Hủy bỏ việc chỉ định format, vì một số định dạng khác nhau có thể có format giống nhau, chỉ định hậu tố cũng có thể đạt được hiệu quả tương tự
             //if (oa.Format != null && pass!=1)
             //{
             //    extra = $"-f {oa.Format}";
@@ -178,11 +178,11 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         {
             if (oa.DisableVideo && oa.DisableAudio)
             {
-                throw new FFmpegArgumentException("不能同时禁用视频和音频");
+                throw new FFmpegArgumentException("Không thể tắt video và âm thanh cùng một lúc");
             }
             if ((oa.Video?.TwoPass ?? false) && string.IsNullOrWhiteSpace(oa.Format))
             {
-                throw new FFmpegArgumentException("需要二次编码时，必须指定格式（Format）");
+                throw new FFmpegArgumentException("Khi cần mã hóa hai lần, bạn phải chỉ định định dạng（Format）");
             }
         }
     }
