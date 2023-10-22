@@ -12,7 +12,7 @@ namespace SimpleFFmpegGUI.Model
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// 码率
+        /// Bitrate
         /// </summary>
         public int? Bitrate
         {
@@ -21,7 +21,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 编码
+        /// Mã hóa
         /// </summary>
         public string Code
         {
@@ -30,7 +30,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 采样率
+        /// Tỷ lệ mẫu
         /// </summary>
         public int? SamplingRate
         {
