@@ -21,36 +21,36 @@
             <TextBox
                 Width="160"
                 Margin="0,8,16,0"
-                ui:ControlHelper.Header="开始时间"
+                ui:ControlHelper.Header="Thời gian bắt đầu"
                 ui:TextBoxHelper.IsDeleteButtonVisible="False"
                 Text="{Binding From, StringFormat=yyyy-MM-dd HH:mm}" />
             <TextBox
                 Width="160"
                 Margin="0,8,16,0"
-                ui:ControlHelper.Header="结束时间"
+                ui:ControlHelper.Header="Thời gian kết thúc"
                 ui:TextBoxHelper.IsDeleteButtonVisible="False"
                 Text="{Binding To, StringFormat=yyyy-MM-dd HH:mm}" />
             <ComboBox
                 Width="480"
                 Margin="0,8,16,0"
-                ui:ControlHelper.Header="筛选任务"
+                ui:ControlHelper.Header="Lọc nhiệm vụ"
                 DisplayMemberPath="IOText"
                 ItemsSource="{Binding Tasks}"
                 SelectedItem="{Binding SelectedTask}" />
             <ComboBox
                 Margin="0,8,16,0"
-                ui:ControlHelper.Header="类型"
+                ui:ControlHelper.Header="kiểu"
                 SelectedIndex="{Binding TypeIndex}">
-                <ComboBoxItem>全部</ComboBoxItem>
-                <ComboBoxItem>错误</ComboBoxItem>
-                <ComboBoxItem>警告</ComboBoxItem>
-                <ComboBoxItem>信息</ComboBoxItem>
-                <ComboBoxItem>输出</ComboBoxItem>
+                <ComboBoxItem>Tất cả</ComboBoxItem>
+                <ComboBoxItem>Lỗi</ComboBoxItem>
+                <ComboBoxItem>Cảnh báo</ComboBoxItem>
+                <ComboBoxItem>Thông tin</ComboBoxItem>
+                <ComboBoxItem>Đầu ra</ComboBoxItem>
             </ComboBox>
             <Button
                 VerticalAlignment="Bottom"
                 Click="FilterButton_Click">
-                筛选
+                Bộ lọc
             </Button>
         </WrapPanel>
         <DataGrid
@@ -64,13 +64,13 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Binding="{Binding Time, StringFormat={StaticResource DateTimeFormat}}"
-                    Header="时间" />
+                    Header="Thời gian" />
                 <DataGridTextColumn
-                    Binding="{Binding Type, Converter={StaticResource StringReplaceConverter}, ConverterParameter=I:信息;O:输出;E:错误;W:警告}"
-                    Header="类型" />
+                    Binding="{Binding Type, Converter={StaticResource StringReplaceConverter}, ConverterParameter=I:Thông tin;O:Đầu ra;E:Lỗi;W:Cảnh báo}"
+                    Header="Kiểu" />
                 <DataGridTextColumn
                     Binding="{Binding Message}"
-                    Header="信息" />
+                    Header="Thông tin" />
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
