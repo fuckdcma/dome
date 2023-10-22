@@ -55,7 +55,7 @@ namespace SimpleFFmpegGUI.WPF.Pages
             var pages = Enumerable.Range(0, AllTasks.PageCount)
                  .Select(p => new
                  {
-                     Label = "第" + (p + 1) + "页",
+                     Label = "No." + (p + 1) + "Trang",
                      Value = p,
                      Value1 = p + 1
                  });
