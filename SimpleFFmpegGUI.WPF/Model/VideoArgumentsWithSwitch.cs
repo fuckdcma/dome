@@ -179,7 +179,7 @@ namespace SimpleFFmpegGUI.WPF.Model
             EnableSize = !string.IsNullOrEmpty(Size);
             EnablePixelFormat = !string.IsNullOrEmpty(PixelFormat);
             EnableAspectRatio = !string.IsNullOrEmpty(AspectRatio);
-            //从数据库提取的Argument，若某些开关没有启动，则其值为null，这不符合UI，因此需要对null值进行赋初始值。
+            //Các đối số được trích xuất từ cơ sở dữ liệu, nếu một số khóa chuyển không được khởi động, giá trị của chúng là null, không tuân thủ giao diện người dùng, vì vậy bạn cần gán giá trị ban đầu cho giá trị null.
             Crf ??= 25;
             MaxBitrate ??= 20;
             AverageBitrate = AverageBitrate ?? 10;
