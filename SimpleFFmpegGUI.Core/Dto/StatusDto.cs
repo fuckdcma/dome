@@ -13,7 +13,7 @@ namespace SimpleFFmpegGUI.Dto
     public class StatusDto : INotifyPropertyChanged
     {
         /// <summary>
-        /// 识别FFmpeg输出的进度信息的正则
+        /// Biểu thức chính quy để nhận dạng thông tin tiến trình đầu ra của FFmpeg
         /// </summary>
         private static readonly Regex rFFmpegOutput = new Regex(
             @"frame= *(?<f>[0-9]+) *fps= *(?<fps>[0-9\.]+) *(q= *(?<q>[0-9\.\-]+) *)+size= *(?<size>([0-9\.a-zA-Z]+)|(N/A)) *time= *(?<time>[0-9\.\-:]+) *bitrate= *(?<b>([0-9\.a-z/]+)|(N/A)).*speed= *(?<speed>([0-9\.]+)|(N/A))x?", RegexOptions.Compiled);
@@ -94,7 +94,7 @@ namespace SimpleFFmpegGUI.Dto
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// 码率
+        /// Bitrate
         /// </summary>
         public string Bitrate
         {
@@ -103,7 +103,7 @@ namespace SimpleFFmpegGUI.Dto
         }
 
         /// <summary>
-        /// 转码帧速度
+        /// Chuyển đổi tốc độ FPS
         /// </summary>
         public double Fps
         {
@@ -112,7 +112,7 @@ namespace SimpleFFmpegGUI.Dto
         }
 
         /// <summary>
-        /// 当前帧
+        /// FPS hiện tại
         /// </summary>
         public int Frame
         {
@@ -121,7 +121,7 @@ namespace SimpleFFmpegGUI.Dto
         }
 
         /// <summary>
-        /// 是否有更详细的信息（进度）
+                /// Có thông tin chi tiết hơn về tiến độ không?
         /// </summary>
         public bool HasDetail
         {
@@ -130,7 +130,7 @@ namespace SimpleFFmpegGUI.Dto
         }
 
         /// <summary>
-        /// 是否已暂停
+        /// Đã tạm dừng chưa?
         /// </summary>
         public bool IsPaused
         {
@@ -139,7 +139,7 @@ namespace SimpleFFmpegGUI.Dto
         }
 
         /// <summary>
-        /// 是否正在执行
+        /// Đang thực hiện chưa?
         /// </summary>
         public bool IsProcessing
         {
@@ -148,7 +148,7 @@ namespace SimpleFFmpegGUI.Dto
         }
 
         /// <summary>
-        /// 输出字符串
+        /// xuất chuỗi ký tự
         /// </summary>
         public string LastOutput
         {
@@ -157,7 +157,7 @@ namespace SimpleFFmpegGUI.Dto
         }
 
         /// <summary>
-        /// 进度信息
+        /// thông tin tiến độ
         /// </summary>
         public ProgressDto Progress
         {
@@ -166,7 +166,7 @@ namespace SimpleFFmpegGUI.Dto
         }
 
         /// <summary>
-        /// 质量
+        /// chất lượng
         /// </summary>
         public double Q
         {
@@ -175,7 +175,7 @@ namespace SimpleFFmpegGUI.Dto
         }
 
         /// <summary>
-        /// 当前文件大小
+        /// kích thước tệp hiện tại
         /// </summary>
         public string Size
         {
@@ -184,7 +184,7 @@ namespace SimpleFFmpegGUI.Dto
         }
 
         /// <summary>
-        /// 处理速度信息
+        /// thông tin về tốc độ xử lý
         /// </summary>
         public string Speed
         {
@@ -193,7 +193,7 @@ namespace SimpleFFmpegGUI.Dto
         }
 
         /// <summary>
-        /// 任务
+        /// nhiệm vụ
         /// </summary>
         public TaskInfo Task
         {
@@ -202,7 +202,7 @@ namespace SimpleFFmpegGUI.Dto
         }
 
         /// <summary>
-        /// 当前视频里的时间
+        /// thời gian trong video hiện tại
         /// </summary>
         public TimeSpan Time
         {
