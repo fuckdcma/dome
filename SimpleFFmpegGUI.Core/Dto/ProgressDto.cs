@@ -3,88 +3,88 @@
 namespace SimpleFFmpegGUI.Dto
 {
     /// <summary>
-    /// 进度信息
+    /// Thông tin tiến độ
     /// </summary>
     public class ProgressDto
     {
         /// <summary>
-        /// 基础百分比，用于二压时，第二遍在在百分比的基础上加上一个值
+        /// Tỷ lệ phần trăm cơ bản, khi được sử dụng cho áp suất thứ hai, lần vượt qua thứ hai được thêm vào tỷ lệ phần trăm bằng một giá trị
         /// </summary>
         public double BasePercent { get; set; } = 0;
 
         /// <summary>
-        /// 已经花费的时间
+        /// Thời gian đã trôi qua
         /// </summary>
         public TimeSpan Duration { get; set; }
 
         /// <summary>
-        /// 已经花费的时间，不包含暂停的时间
+        /// Thời gian đã trôi qua, không tính thời gian tạm dừng
         /// </summary>
         public TimeSpan RealDuration { get; set; }
 
         /// <summary>
-        /// 预计结束时间
+        /// Dự kiến thời gian kết thúc
         /// </summary>
         public DateTime FinishTime { get; set; }
 
         /// <summary>
-        /// 是否无法确定进度
+        /// Có thể không xác định được tiến độ
         /// </summary>
         public bool IsIndeterminate { get; set; }
 
         /// <summary>
-        /// 剩余时间
+        /// Thời gian còn lại
         /// </summary>
         public TimeSpan LastTime { get; set; }
 
         /// <summary>
-        /// 任务名
+        /// Tên nhiệm vụ
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 暂停的持续时间
+        /// Thời gian tạm dừng
         /// </summary>
         public TimeSpan PauseTime { get; set; } = TimeSpan.Zero;
 
         /// <summary>
-        /// 百分比进度
+        /// Phần trăm tiến độ
         /// </summary>
         public double Percent { get; set; }
 
         /// <summary>
-        /// 任务开始时间
+        /// Thời gian bắt đầu nhiệm vụ
         /// </summary>
         public DateTime StartTime { get; set; }
 
         /// <summary>
-        /// 视频持续时间
+        /// Thời gian video kéo dài
         /// </summary>
         public TimeSpan VideoDuration { get; set; } = TimeSpan.Zero;
 
         /// <summary>
-        /// 视频长度
+        /// Độ dài video
         /// </summary>
         public TimeSpan? VideoLength { get; set; }
 
         /// <summary>
-        /// 百分比压缩因子。用于二压时，Pass=1和Pass=2时采用的速度预设不同，因此编码速度有较大差异，
-        /// 需要为前后两次Pass分别乘以不同的因子以保证进度条正确
+        /// Tỷ lệ nén phần trăm. Trong trường hợp nén hai lần, tốc độ dự kiến được sử dụng trong Pass=1 và Pass=2 là khác nhau, do đó tốc độ mã hóa có sự khác biệt lớn
+        /// Cần nhân với các hệ số khác nhau cho hai lần Pass trước và sau để đảm bảo thanh tiến trình chính xác.
         /// </summary>
         /// <remarks>
-        /// 可恶的NewBing，告诉我2Pass时前后两次Preset可以不同，被坑了。
+        /// NewBing thật đáng ghét, đã nói với tôi rằng trong 2Pass, hai lần Preset có thể khác nhau, tôi đã bị lừa.
         /// </remarks>
         public double PercentCompressionFactor { get; set; } = 1;
 
         /// <summary>
-        /// 更新进度
+        /// Tiến độ cập nhật
         /// </summary>
         /// <param name="VideoDuration"></param>
         public void Update(TimeSpan VideoDuration)
         {
             if (VideoLength.HasValue)
             {
-                //百分比=计算百分比*压缩系数+基准百分比，是一个线性的变化
+                //Tỷ lệ phần trăm = Tỷ lệ phần trăm tính toán * Hệ số nén + Tỷ lệ phần trăm cơ sở, là một sự thay đổi tuyến tính.
                 Percent = VideoDuration.Ticks * 1.0 / VideoLength.Value.Ticks * PercentCompressionFactor + BasePercent;
                 if (Percent >= 1)
                 {
