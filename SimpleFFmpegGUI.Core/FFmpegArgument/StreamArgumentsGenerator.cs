@@ -7,7 +7,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
     public class StreamArgumentsGenerator : ArgumentsGeneratorBase
     {
         /// <summary>
-        /// 设置流映射
+        /// Thiết lập ánh xạ dòng
         /// </summary>
         /// <param name="inputIndex"></param>
         /// <param name="channel"></param>
