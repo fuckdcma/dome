@@ -25,7 +25,7 @@ namespace SimpleFFmpegGUI.Model
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// 持续时间
+        /// Khoảng thời gian
         /// </summary>
         public TimeSpan? Duration
         {
@@ -34,7 +34,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 其他参数
+        /// Các thông số khác
         /// </summary>
         public string Extra
         {
@@ -43,7 +43,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 输入文件的路径
+        /// Nhập đường dẫn đến tệp
         /// </summary>
         public string FilePath
         {
@@ -52,7 +52,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 输入格式
+        /// Định dạng đầu vào
         /// </summary>
         public string Format
         {
@@ -60,7 +60,7 @@ namespace SimpleFFmpegGUI.Model
             {
                 if (!string.IsNullOrEmpty(format) && format != "image2" && image2)
                 {
-                    throw new Exception("不可以同时指定输入为帧序列又指定输入格式");
+                    throw new Exception("Bạn không thể chỉ định cả đầu vào dưới dạng chuỗi khung và định dạng đầu vào");
                 }
                 return image2 ? "image2" : format;
             }
@@ -68,7 +68,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 输入帧率（主要针对图像序列）
+        /// Tốc độ khung hình đầu vào (chủ yếu cho chuỗi hình ảnh)
         /// </summary>
         public double? Framerate
         {
@@ -77,7 +77,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 开始时间
+        /// Thời gian bắt đầu
         /// </summary>
         public TimeSpan? From
         {
@@ -86,7 +86,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 输入是否为图像帧序列
+        /// Nhập xem đó có phải là chuỗi khung hình ảnh hay không
         /// </summary>
         public bool Image2
         {
@@ -102,7 +102,7 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 结束时间
+        /// Thời gian kết thúc
         /// </summary>
         public TimeSpan? To
         {
