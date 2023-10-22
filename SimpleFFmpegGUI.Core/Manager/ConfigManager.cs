@@ -35,7 +35,7 @@ namespace SimpleFFmpegGUI.Manager
             cache.Add(key, value);
 
             using Logger logger = new Logger();
-            logger.Info($"读取配置：[{key}]={value}");
+            logger.Info($"Đọc config：[{key}]={value}");
             return value;
         }
         public static void SetConfig<T>(string key, T value)
@@ -64,7 +64,7 @@ namespace SimpleFFmpegGUI.Manager
             db.SaveChanges();
 
             using Logger logger = new Logger();
-            logger.Info($"写入配置：[{key}]={value}");
+            logger.Info($"Viết config：[{key}]={value}");
         }
 
         private static string GetString<T>(T data)
