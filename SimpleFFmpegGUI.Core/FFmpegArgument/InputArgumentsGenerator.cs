@@ -6,7 +6,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
     public class InputArgumentsGenerator : ArgumentsGeneratorBase
     {
         /// <summary>
-        /// 持续时间
+        /// Thời lượng
         /// </summary>
         /// <param name="length"></param>
         public void Duration(TimeSpan? length)
@@ -19,7 +19,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 强制输入格式
+            /// Định dạng đầu vào
         /// </summary>
         /// <param name="format"></param>
         public void Format(string format)
@@ -32,7 +32,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 输入帧率
+        /// Khung hình đầu vào
         /// </summary>
         /// <param name="fps"></param>
         public void Framerate(double? fps)
@@ -45,7 +45,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 输入文件
+        /// Tệp đầu vào
         /// </summary>
         /// <param name="file"></param>
         public void Input(string file)
@@ -58,7 +58,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 开始时间
+        /// Thời gian bắt đầu
         /// </summary>
         /// <param name="seek"></param>
         public void Seek(TimeSpan? seek)
@@ -71,7 +71,7 @@ namespace SimpleFFmpegGUI.FFmpegArgument
         }
 
         /// <summary>
-        /// 结束时间
+        /// Thời gian kết thúc
         /// </summary>
         /// <param name="to"></param>
         public void To(TimeSpan? to)
