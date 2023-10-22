@@ -11,7 +11,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         };
 
         /// <summary>
-        /// 码率
+        /// Bitrate
         /// </summary>
         /// <param name="kb"></param>
         /// <returns></returns>
@@ -20,13 +20,13 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (kb < 0)
             {
-                throw new FFmpegArgumentException("码率超出范围");
+                throw new FFmpegArgumentException("Bitrate vượt quá phạm vi");
             }
             return new FFmpegArgumentItem("b:a", $"{kb}K");
         }
 
         /// <summary>
-        /// 采样率
+        /// Tần số lấy mẫu
         /// </summary>
         /// <param name="hz"></param>
         /// <returns></returns>
@@ -35,7 +35,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         {
             if (hz < 9600)
             {
-                throw new FFmpegArgumentException("采样率超出范围");
+                throw new FFmpegArgumentException("Tần số lấy mẫu vượt quá phạm vi");
             }
             return new FFmpegArgumentItem("ar", hz.ToString());
         }
