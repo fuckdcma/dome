@@ -14,11 +14,11 @@ namespace SimpleFFmpegGUI.WPF.Converters
         {
             if (targetType != typeof(string))
             {
-                throw new ArgumentException("目标类型应为string", nameof(targetType));
+                throw new ArgumentException("Loại mục tiêu phải là string", nameof(targetType));
             }
             if (value is not int)
             {
-                throw new ArgumentException("源类型应为int", nameof(value));
+                throw new ArgumentException("Loại nguồn phải là int", nameof(value));
             }
             string[] strs = null;
             if (parameter is string s1)
@@ -31,7 +31,7 @@ namespace SimpleFFmpegGUI.WPF.Converters
             }
             else
             {
-                throw new ArgumentException("parameter类型应为string或string[]", nameof(parameter));
+                throw new ArgumentException("parameter phải là string hoặc string[]", nameof(parameter));
             }
             return strs[(int)value];
 
