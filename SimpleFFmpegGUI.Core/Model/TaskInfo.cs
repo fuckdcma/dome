@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace SimpleFFmpegGUI.Model
 {
     /// <summary>
-    /// FFmpeg任务
+    /// Nhiệm vụ FFmpeg
     /// </summary>
     public class TaskInfo : ModelBase
     {
@@ -15,57 +15,57 @@ namespace SimpleFFmpegGUI.Model
         }
 
         /// <summary>
-        /// 任务类型
+        /// Loại nhiệm vụ
         /// </summary>
         public TaskType Type { get; set; }
 
         /// <summary>
-        /// 当前任务状态
+        /// Trạng thái nhiệm vụ hiện tại
         /// </summary>
         public TaskStatus Status { get; set; }
 
         /// <summary>
-        /// 输入文件和参数
+        /// Nhập tệp và tham số
         /// </summary>
         public List<InputArguments> Inputs { get; set; }
 
         /// <summary>
-        /// 指定的输出路径
+        /// Đường dẫn đầu ra được chỉ định
         /// </summary>
         public string Output { get; set; }
 
         /// <summary>
-        /// 实际的输出路径
+        /// Đường dẫn đầu ra thực tế
         /// </summary>
         public string RealOutput { get; set; }
 
         /// <summary>
-        /// 输出参数
+        /// Thông số đầu ra
         /// </summary>
         public OutputArguments Arguments { get; set; }
 
         /// <summary>
-        /// 任务创建时间
+        /// Thời gian tạo tác vụ
         /// </summary>
         public DateTime CreateTime { get; set; }
 
         /// <summary>
-        /// 开始时间
+        /// Thời gian bắt đầu
         /// </summary>
         public DateTime? StartTime { get; set; }
 
         /// <summary>
-        /// 结束时间
+        /// Thời gian kết thúc
         /// </summary>
         public DateTime? FinishTime { get; set; }
 
         /// <summary>
-        /// 相关信息，包括错误信息、执行结果等
+        /// Thông tin liên quan, bao gồm thông báo lỗi, kết quả thực thi, v.v
         /// </summary>
         public string Message { get; set; }
 
         /// <summary>
-        /// 执行时FFmpeg的执行参数
+        /// Thông số khớp lệnh của FFmpeg tại thời điểm khớp lệnh
         /// </summary>
         public string FFmpegArguments { get; set; }
     }
