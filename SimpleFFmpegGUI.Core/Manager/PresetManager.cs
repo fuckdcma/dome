@@ -12,7 +12,7 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentException("名称为空");
+                throw new ArgumentException("Tên trống");
             }
             CodePreset preset = new CodePreset()
             {
@@ -41,11 +41,11 @@ namespace SimpleFFmpegGUI.Manager
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentException("名称为空");
+                throw new ArgumentException("Tên trống");
             }
             if (ContainsPreset(name, type))
             {
-                throw new Exception($"名为{name}的预设已存在");
+                throw new Exception($"Một giá trị đặt trước có tên {name} đã tồn tại");
             }
             CodePreset preset = new CodePreset()
             {
@@ -87,7 +87,7 @@ namespace SimpleFFmpegGUI.Manager
             CodePreset preset = db.Presets.Find(id);
             if (preset == null)
             {
-                throw new ArgumentException($"找不到ID为{id}的预设");
+                throw new ArgumentException($"Không thể tìm thấy giá trị đặt trước với ID {id}");
             }
             db.Presets.Remove(preset);
             db.SaveChanges();
@@ -117,7 +117,7 @@ namespace SimpleFFmpegGUI.Manager
             CodePreset preset = db.Presets.Find(id);
             if (preset == null)
             {
-                throw new ArgumentException($"找不到ID为{id}的预设");
+                throw new ArgumentException($"Không thể tìm thấy giá trị đặt trước với ID {id}");
             }
             var type = preset.Type;
             if (db.Presets.Any(p => p.Type == type && p.Default && !p.IsDeleted))
@@ -156,7 +156,7 @@ namespace SimpleFFmpegGUI.Manager
                 var type = preset.Type;
                 if (string.IsNullOrWhiteSpace(name))
                 {
-                    throw new ArgumentException("名称为空");
+                    throw new ArgumentException("Tên trống");
                 }
                 preset.Id = 0;
                 preset.Id = 0;
