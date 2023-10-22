@@ -24,7 +24,7 @@ namespace SimpleFFmpegGUI
         public PipeService()
         {
             using Logger logger = new Logger();
-            logger.Info("已建立与客户端的连接");
+            logger.Info("Một kết nối với máy khách đã được thiết lập");
         }
 
         public void StartQueue()
@@ -244,11 +244,11 @@ namespace SimpleFFmpegGUI
             var files = Directory.EnumerateFiles(dir, name, SearchOption.AllDirectories);
             if (!files.Any())
             {
-                throw new Exception("不存在文件" + name);
+                throw new Exception("Tệp không tồn tại" + name);
             }
             if (files.Count() > 2)
             {
-                throw new Exception($"存在多个文件名为{name}的文件");
+                throw new Exception($"Có nhiều tệp có tên tệp {name}");
             }
             return files.First();
         }
