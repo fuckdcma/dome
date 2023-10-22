@@ -9,7 +9,7 @@ namespace SimpleFFmpegGUI.FFmpegLib
         Image
     }
     /// <summary>
-    /// 视频容器格式
+    /// Định dạng tệp video
     /// </summary>
     public class VideoFormat
     {
@@ -47,32 +47,32 @@ namespace SimpleFFmpegGUI.FFmpegLib
         }
 
         /// <summary>
-        /// 容器名
+        /// Tên vùng chứa
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 格式扩展名
+        /// Phần mở rộng định dạng
         /// </summary>
         public string Extension { get; set; }
 
         /// <summary>
-        /// 格式类型
+        /// Loại định dạng
         /// </summary>
         public VideoFormatType Type { get; set; }
 
         /// <summary>
-        /// 是否为仅音频
+        /// Chỉ có âm thanh
         /// </summary>
         public bool AudioOnly =>Type==VideoFormatType.Audio;
 
         /// <summary>
-        /// 是否为图像
+        /// Có phải là hình ảnh không?
         /// </summary>
         public bool ImageOnly=>Type==VideoFormatType.Image;
 
         /// <summary>
-        /// 是否为主要格式
+        /// Có phải là định dạng chính không?
         /// </summary>
         public bool Main { get; set; }
     }
