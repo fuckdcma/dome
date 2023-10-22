@@ -2,22 +2,22 @@
 {
     public enum TaskType
     {
-        [NameDescription("转码", "将视频重新编码")]
+        [NameDescription("Chuyển mã", "mã hóa lại video")]
         Code = 0,
 
-        [NameDescription("合并视音频", "将视频和音频合并为一个文件")]
+        [NameDescription("Hợp nhất AV", "Hợp nhất video và âm thanh thành một tệp")]
         Combine = 1,
 
-        [NameDescription("视频比较", "比较两个视频之间的一致性")]
+        [NameDescription("So sánh video", "So sánh tính nhất quán giữa hai video")]
         Compare = 2,
 
-        [NameDescription("自定义参数", "完全自定义参数")]
+        [NameDescription("Thông số tùy chỉnh", "Thông số tùy chỉnh đầy đủ")]
         Custom = 3,
 
-        [NameDescription("视频拼接", "将多个视频首尾相连生成一个视频")]
+        [NameDescription("Ghép video", "Kết nối nhiều video từ đầu đến cuối để tạo một video")]
         Concat = 4,
 
-        //[NameDescription("帧转视频","将一系列的图片转为视频")]
+        //[NameDescription("Frame to video","biến một loạt hình ảnh thành video")]
         //Frame2Video=5,
     }
 }
